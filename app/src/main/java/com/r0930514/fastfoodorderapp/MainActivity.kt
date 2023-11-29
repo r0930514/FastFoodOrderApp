@@ -54,7 +54,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             onClick = {}
     ){
         Box(Modifier.fillMaxSize()) {
-            Text("Clickable", Modifier.align(Alignment.Center))
+            Text("Test", Modifier.align(Alignment.Center))
         }
     }
 
