@@ -1,4 +1,4 @@
-    package com.r0930514.fastfoodorderapp
+package com.r0930514.fastfoodorderapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,8 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.r0930514.fastfoodorderapp.components.CAppBar
-import com.r0930514.fastfoodorderapp.components.CNavBar
+import com.r0930514.fastfoodorderapp.components.*
 import com.r0930514.fastfoodorderapp.ui.theme.FastFoodOrderAppTheme
 
 
