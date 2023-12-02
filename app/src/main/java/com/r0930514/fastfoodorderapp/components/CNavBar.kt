@@ -14,7 +14,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 
 //抽象類別 類似enum
 sealed class CNavBarItem(val route:String, val icon:ImageVector, val label:String){
@@ -24,7 +24,7 @@ sealed class CNavBarItem(val route:String, val icon:ImageVector, val label:Strin
 }
 
 @Composable
-fun CNavBar() {
+fun CNavBar(navHostController: NavHostController) {
     var selectedItem by remember { mutableIntStateOf(0) }
     val items = listOf(CNavBarItem.Home, CNavBarItem.Order, CNavBarItem.Member)
     NavigationBar {
@@ -33,15 +33,14 @@ fun CNavBar() {
                 icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
                 label = { Text(item.label) },
                 selected = selectedItem == index,
-                onClick = { selectedItem = index }
+                onClick = {
+                    selectedItem = index
+                    navHostController.navigate(item.route)
+                },
             )
         }
 
     }
 }
 
-@Preview
-@Composable
-fun CNavbarPreview(){
-    CNavBar()
-}
+
