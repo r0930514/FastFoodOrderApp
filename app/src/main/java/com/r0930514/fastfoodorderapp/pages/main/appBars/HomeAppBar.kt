@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.components
+package com.r0930514.fastfoodorderapp.pages.main.appBars
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api

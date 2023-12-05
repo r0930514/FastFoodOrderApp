@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.pages
+package com.r0930514.fastfoodorderapp.pages.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -18,16 +18,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.R
+import com.r0930514.fastfoodorderapp.pages.main.appBars.CAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePage(){
-    LazyColumn() {
-        items(5) {
-            HomePageCard()
+fun HomePage(navController: NavHostController) {
+    Column {
+        CAppBar()
+        LazyColumn() {
+            items(5) {
+                HomePageCard()
+            }
         }
     }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,6 +42,7 @@ fun HomePage(){
 fun HomePageCard(){
     Column (
         modifier = Modifier.padding(24.dp)){
+
         Card(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             modifier = Modifier
