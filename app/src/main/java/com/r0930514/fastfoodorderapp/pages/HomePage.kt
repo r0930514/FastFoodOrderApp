@@ -23,12 +23,11 @@ import com.r0930514.fastfoodorderapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomePage(){
-    LazyColumn(){
+    LazyColumn() {
         items(5) {
             HomePageCard()
         }
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

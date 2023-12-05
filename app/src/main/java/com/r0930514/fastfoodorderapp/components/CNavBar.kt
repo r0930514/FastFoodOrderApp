@@ -1,9 +1,5 @@
 package com.r0930514.fastfoodorderapp.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -13,29 +9,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-
-//抽象類別 類似enum
-sealed class CNavBarItem(val route:String, val icon:ImageVector, val label:String){
-    object Home:CNavBarItem("Home", Icons.Filled.Home, "首頁")
-    object Order:CNavBarItem("Order", Icons.Filled.PlayArrow, "訂餐")
-    object Member:CNavBarItem("Member", Icons.Filled.Person, "會員")
-}
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.r0930514.fastfoodorderapp.navigation.BottomNavBarItem
 
 @Composable
 fun CNavBar(navHostController: NavHostController) {
     var selectedItem by remember { mutableIntStateOf(0) }
-    val items = listOf(CNavBarItem.Home, CNavBarItem.Order, CNavBarItem.Member)
+    val items = listOf(BottomNavBarItem.Home, BottomNavBarItem.Order, BottomNavBarItem.Member)
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination
     NavigationBar {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
                 label = { Text(item.label) },
-                selected = selectedItem == index,
+                selected = currentRoute?.route == item.route,
                 onClick = {
                     selectedItem = index
-                    navHostController.navigate(item.route)
+                    navHostController.navigate(item.route){
+                        popUpTo(navHostController.graph.findStartDestination().id) {
+                            inclusive = false
+                            saveState = false
+                        }
+                        launchSingleTop = true
+                        restoreState = false
+                    }
                 },
             )
         }
