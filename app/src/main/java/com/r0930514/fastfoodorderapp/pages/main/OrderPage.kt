@@ -1,33 +1,42 @@
 package com.r0930514.fastfoodorderapp.pages.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.pages.main.appBars.OrderAppBar
-import com.r0930514.fastfoodorderapp.pages.main.orderTabs.OrderCards
+import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OrderPage(navController: NavHostController) {
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
     val items = listOf("漢堡", "麵食", "小吃", "飲料")
+    val scope = rememberCoroutineScope()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        pageCount = { items.size }
+    )
 
     Column {
         OrderAppBar()
         TabRow(
-            selectedTabIndex = selectedTabIndex) {
+            selectedTabIndex = pagerState.currentPage) {
             items.forEachIndexed { index, item ->
                 Tab(
-                    selected = (index == selectedTabIndex),
+                    selected = (index == pagerState.currentPage),
                     onClick = {
-                        selectedTabIndex = index
+                        scope.launch {
+                            pagerState.scrollToPage(index, 0f)
+                        }
                     },
                     text = {
                         Text(text = item)
@@ -35,11 +44,8 @@ fun OrderPage(navController: NavHostController) {
                 )
             }
         }
-        when(selectedTabIndex) {
-            0 -> OrderCards()
-            1 -> OrderCards()
-            2 -> OrderCards()
+        HorizontalPager(state = pagerState) {
+            Text(text = items[it], modifier = Modifier.fillMaxSize())
         }
-
     }
 }

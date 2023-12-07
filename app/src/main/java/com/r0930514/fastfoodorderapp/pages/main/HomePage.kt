@@ -63,7 +63,7 @@ fun HomePageCard(){
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = "營運公告",
+                        text = "營運公告S",
                         fontSize = 16.sp,
 
                         )
