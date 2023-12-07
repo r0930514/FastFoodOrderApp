@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.pages.main.appBars
+package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderAppBar(){
-    var iconColor :IconButtonColors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
+    val iconColor :IconButtonColors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
     CenterAlignedTopAppBar(
         title = { Text(text = "選擇餐點", modifier = Modifier.padding(12.dp)) },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -29,10 +29,10 @@ fun OrderAppBar(){
         ),
         actions = {
             IconButton(onClick = { }, colors = iconColor) {
-                Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
+                Icon(imageVector = Icons.Rounded.Favorite, contentDescription = "Search")
             }
             IconButton(onClick = { }, colors = iconColor) {
-                Icon(imageVector = Icons.Rounded.Favorite, contentDescription = "Search")
+                Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
             }
         }
     )

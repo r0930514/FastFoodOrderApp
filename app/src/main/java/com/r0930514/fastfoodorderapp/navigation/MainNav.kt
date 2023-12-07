@@ -5,18 +5,22 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.r0930514.fastfoodorderapp.pages.TestPage
-import com.r0930514.fastfoodorderapp.pages.main.CScaffold
+import com.r0930514.fastfoodorderapp.screens.LoginScreen
+import com.r0930514.fastfoodorderapp.screens.TestScreen
+import com.r0930514.fastfoodorderapp.screens.mainScreen.component.MainScaffold
 
 @Composable
 fun MainNav(){
     val navController:NavHostController = rememberNavController()
     NavHost(navController = navController, startDestination = "BottomNav"){
         composable(route = "BottomNav"){
-            CScaffold(navController)
+            MainScaffold(navController)
         }
         composable("Test"){
-            TestPage(navHostController = navController)
+            TestScreen(navHostController = navController)
+        }
+        composable("Login"){
+            LoginScreen(navController)
         }
     }
 }

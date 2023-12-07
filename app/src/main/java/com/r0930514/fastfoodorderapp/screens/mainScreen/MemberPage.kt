@@ -1,6 +1,7 @@
-package com.r0930514.fastfoodorderapp.pages.main
+package com.r0930514.fastfoodorderapp.screens.mainScreen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -9,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -24,10 +26,10 @@ fun MemberPage(navHostController: NavHostController){
                 titleContentColor = MaterialTheme.colorScheme.primary,
             )
         )
-        Column(modifier = Modifier.padding(12.dp)) {
-            Text(text = "HELLO Member")
-            Button(onClick = { navHostController.navigate("Test") }) {
-                Text(text = "切換到Test")
+        Column(modifier = Modifier.padding(12.dp).fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "請登入會員")
+            Button(onClick = { navHostController.navigate("Login") }) {
+                Text(text = "登入")
             }
         }
     }

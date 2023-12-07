@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.pages.main.appBars
+package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,5 +23,5 @@ fun CAppBar() {
 @Preview
 @Composable
 fun CAppBarPreview(){
-    CAppBar();
+    CAppBar()
 }

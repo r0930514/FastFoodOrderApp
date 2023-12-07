@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.pages.main.appBars
+package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -7,11 +7,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import com.r0930514.fastfoodorderapp.navigation.BottomNavBarItem
+import com.r0930514.fastfoodorderapp.screens.mainScreen.items.MainNavBarItem
 
 @Composable
 fun CNavBar(selectItem: Int, onSelectedItem: (Int) -> Unit) {
-    val items = listOf(BottomNavBarItem.Home, BottomNavBarItem.Order, BottomNavBarItem.Member)
+    val items = listOf(MainNavBarItem.Home, MainNavBarItem.Order, MainNavBarItem.Member)
 
     NavigationBar {
         items.forEachIndexed { index, item ->
