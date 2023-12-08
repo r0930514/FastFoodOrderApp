@@ -18,7 +18,7 @@ fun TestScreen(navHostController: NavHostController){
         topBar = { CAppBar() }
     ){
         Column {
-            Text(text = "TEST")
+            Text(text = "TEST123123")
         }
     }
 }
