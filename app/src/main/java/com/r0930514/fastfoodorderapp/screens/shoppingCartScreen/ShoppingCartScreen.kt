@@ -2,6 +2,7 @@ package com.r0930514.fastfoodorderapp.screens.shoppingCartScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.R
+import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.CartCard
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +49,11 @@ fun ShoppingCart(navHostController: NavHostController){
         }
     ){
         Column (modifier = Modifier.padding(it)){
-
+            LazyColumn(content = {
+                items(5){
+                    CartCard()
+                }
+            })
         }
     }
 }
