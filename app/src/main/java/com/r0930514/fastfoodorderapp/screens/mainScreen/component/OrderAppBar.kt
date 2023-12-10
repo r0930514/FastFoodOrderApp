@@ -12,10 +12,10 @@ import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,10 +23,7 @@ fun OrderAppBar(){
     val iconColor :IconButtonColors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
     CenterAlignedTopAppBar(
         title = { Text(text = "選擇餐點", modifier = Modifier.padding(12.dp)) },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary,
-        ),
+        colors = TopDefaultAppBarColor(),
         actions = {
             IconButton(onClick = { }, colors = iconColor) {
                 Icon(imageVector = Icons.Rounded.Favorite, contentDescription = "Search")

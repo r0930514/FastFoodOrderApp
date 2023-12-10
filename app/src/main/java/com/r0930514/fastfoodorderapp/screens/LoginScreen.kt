@@ -34,6 +34,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.R
+import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,6 +48,7 @@ fun LoginScreen(navHostController: NavHostController){
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text(text = "登入畫面") },
+                colors = TopDefaultAppBarColor(),
                 actions = {
                     IconButton(onClick = {
                         navHostController.popBackStack()

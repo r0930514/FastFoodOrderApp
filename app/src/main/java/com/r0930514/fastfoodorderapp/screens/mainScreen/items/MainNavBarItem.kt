@@ -8,4 +8,6 @@ sealed class MainNavBarItem(val route:String, val icon: Int, val label:String){
     object Home: MainNavBarItem("Home", R.drawable.home, "首頁")
     object Order: MainNavBarItem("Order", R.drawable.fastfood, "訂餐")
     object Member: MainNavBarItem("Member", R.drawable.person, "會員")
+
+
 }
