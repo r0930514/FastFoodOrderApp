@@ -1,14 +1,14 @@
 package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,11 +29,11 @@ fun HomePageCard(
     Column (
         modifier = Modifier.padding(24.dp))
     {
-        Card(
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        OutlinedCard(
             modifier = Modifier
                 .fillMaxWidth(),
-            onClick = onClick
+            onClick = onClick,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
         ){
             Column{
                 Image(
