@@ -9,6 +9,7 @@ import com.r0930514.fastfoodorderapp.screens.LoginScreen
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.ShoppingCart
 import com.r0930514.fastfoodorderapp.screens.TestScreen
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.MainScaffold
+import com.r0930514.fastfoodorderapp.screens.PaymentCompleted
 
 @Composable
 fun MainNav(){
@@ -26,5 +27,11 @@ fun MainNav(){
         composable("Login"){
             LoginScreen(navController)
         }
+        composable("PaymentCompleted"){
+            PaymentCompleted(navController)
+        }
+
+
+
     }
 }

@@ -19,7 +19,6 @@ import com.r0930514.fastfoodorderapp.screens.mainScreen.HomePage
 import com.r0930514.fastfoodorderapp.screens.mainScreen.MemberPage
 import com.r0930514.fastfoodorderapp.screens.mainScreen.OrderPage
 
-
 @Composable
 fun MainScaffold(navController: NavHostController) {
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
