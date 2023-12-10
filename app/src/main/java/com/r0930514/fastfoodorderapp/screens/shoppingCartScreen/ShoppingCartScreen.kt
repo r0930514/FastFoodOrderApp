@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.screens
+package com.r0930514.fastfoodorderapp.screens.shoppingCartScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -12,7 +12,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
+import com.r0930514.fastfoodorderapp.R
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +33,14 @@ fun ShoppingCart(navHostController: NavHostController){
                         }
                     ) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "關閉", )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            imageVector = ImageVector.Companion.vectorResource(id = R.drawable.remove_shopping_cart),
+                            contentDescription = "清空購物車"
+                        )
                     }
                 }
             )

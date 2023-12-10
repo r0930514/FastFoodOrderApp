@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.screens.LoginScreen
-import com.r0930514.fastfoodorderapp.screens.ShoppingCart
+import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.ShoppingCart
 import com.r0930514.fastfoodorderapp.screens.TestScreen
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.MainScaffold
 
