@@ -1,6 +1,7 @@
 package com.r0930514.fastfoodorderapp.screens.shoppingCartScreen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -49,8 +50,10 @@ fun ShoppingCart(navHostController: NavHostController){
         }
     ){
         Column (modifier = Modifier.padding(it)){
-            LazyColumn(content = {
-                items(5){
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                content = {
+                items(25){
                     CartCard()
                 }
             })
