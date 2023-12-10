@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.r0930514.fastfoodorderapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +40,7 @@ fun HomePageCard(
                 Image(
                     painter = painter,
                     contentDescription = title,
-                    contentScale = ContentScale.FillBounds,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(160.dp)
@@ -49,11 +50,11 @@ fun HomePageCard(
                 ) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleLarge
+                        fontSize = 16.sp
                     )
                     Text(
                         text = description,
-                        style = MaterialTheme.typography.bodyMedium
+                        fontSize = 14.sp
                     )
                 }
             }

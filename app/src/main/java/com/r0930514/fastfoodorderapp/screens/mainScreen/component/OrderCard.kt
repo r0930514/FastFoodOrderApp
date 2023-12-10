@@ -1,13 +1,13 @@
 package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,17 +22,17 @@ import com.r0930514.fastfoodorderapp.R
 @Composable
 @Preview
 fun OrderCard(){
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+    OutlinedCard(
         modifier = Modifier
             .fillMaxWidth(),
-        onClick = {}
+        onClick = {},
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ){
         Column{
             Image(
                 painter = painterResource(id = R.drawable.unknow),
                 contentDescription = "照片",
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
             )
@@ -44,7 +44,10 @@ fun OrderCard(){
                     fontSize = 16.sp,
 
                     )
-                Text(text = "測試", fontSize = 14.sp)
+                Text(
+                    text = "測試",
+                    fontSize = 14.sp
+                )
             }
         }
 
