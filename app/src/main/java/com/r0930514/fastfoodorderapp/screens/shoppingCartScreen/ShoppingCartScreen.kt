@@ -9,16 +9,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.CartAppBar
+import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.CartBottomBar
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.CartCard
-import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.ShoppingCartAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShoppingCart(navHostController: NavHostController){
     Scaffold (
-        topBar = {
-            ShoppingCartAppBar(navHostController)
-        }
+        topBar = { CartAppBar(navHostController) },
+        bottomBar = { CartBottomBar() }
     ){
         Column (modifier = Modifier.padding(it)){
             LazyColumn(

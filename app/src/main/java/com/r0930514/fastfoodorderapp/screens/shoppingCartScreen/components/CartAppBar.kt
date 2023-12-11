@@ -16,7 +16,7 @@ import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShoppingCartAppBar(navHostController: NavHostController){
+fun CartAppBar(navHostController: NavHostController){
     CenterAlignedTopAppBar(
         title = { Text(text = "購物車") },
         colors = TopDefaultAppBarColor(),
