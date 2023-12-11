@@ -1,5 +1,7 @@
 package com.r0930514.fastfoodorderapp.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,7 +17,24 @@ import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.ShoppingCart
 @Composable
 fun MainNav(){
     val navController:NavHostController = rememberNavController()
-    NavHost(navController = navController, startDestination = "BottomNav"){
+    NavHost(
+        navController = navController,
+        startDestination = "BottomNav",
+
+        enterTransition = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Left,
+                animationSpec = tween(700)
+            )
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Left,
+                animationSpec = tween(700)
+            )
+        }
+
+    ){
         composable("BottomNav"){
             MainScaffold(navController)
         }
