@@ -32,6 +32,9 @@ fun MemberPage(navHostController: NavHostController){
             Button(onClick = { navHostController.navigate("PaymentCompleted") }) {
                 Text(text = "測試")
             }
+            Button(onClick = { navHostController.navigate("Detail") }) {
+                Text(text = "訂單明細頁面")
+            }
         }
     }
 }
