@@ -54,7 +54,11 @@ fun ShoppingCart(navHostController: NavHostController){
                 modifier = Modifier.fillMaxSize(),
                 content = {
                 items(25){
-                    CartCard()
+                    CartCard(
+                        title = "第${it}個大漢堡",
+                        description = "大 / 不要酸黃瓜",
+                        price = it*50
+                    )
                 }
             })
         }
