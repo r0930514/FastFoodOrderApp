@@ -29,7 +29,7 @@ fun MainNav(){
         },
         exitTransition = {
             slideOutOfContainer(
-                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Left,
+                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Right,
                 animationSpec = tween(700)
             )
         }
