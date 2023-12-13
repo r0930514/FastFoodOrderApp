@@ -23,6 +23,7 @@ fun HomePage(
                 HomePageCard(
                     title = "首頁資訊$it",
                     description = "這是資訊$it",
+                    imageID = (it*5)
                 )
             }
         }
