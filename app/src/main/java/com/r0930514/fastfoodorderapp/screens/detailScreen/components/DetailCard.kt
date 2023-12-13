@@ -1,7 +1,6 @@
-package com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components
+package com.r0930514.fastfoodorderapp.screens.detailScreen.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,9 +28,9 @@ import com.r0930514.fastfoodorderapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview(showBackground = true)
-fun CartCard(
-    title: String = "未命名",
-    description: String = "-",
+fun DetailCard(
+    title: String = "2023N2301 內用",
+    date: String = "1911-10-10 10:10",
     painter: Painter = painterResource(id = R.drawable.unknow),
     price: Int = 0,
     onClick: () -> Unit = {}
@@ -46,13 +44,6 @@ fun CartCard(
         onClick = { /*TODO*/ }
     ) {
         Row (modifier = Modifier.fillMaxWidth()){
-            Image(
-                painter = painterResource(id = R.drawable.unknow),
-                contentDescription = null,
-                modifier = Modifier.size(80.dp),
-                contentScale = ContentScale.Crop
-
-            )
             Row(
                 modifier = Modifier
                     .padding(16.dp)
@@ -64,7 +55,7 @@ fun CartCard(
                     verticalArrangement = Arrangement.SpaceBetween
                 ){
                     Text(text = title)
-                    Text(text = description)
+                    Text(text = date)
                 }
                 Row {
                     Text(

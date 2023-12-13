@@ -1,7 +1,6 @@
 package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,21 +11,17 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.r0930514.fastfoodorderapp.R
+import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomePageCard(
     title: String = "未命名",
     description: String = "-",
-    painter: Painter = painterResource(id = R.drawable.unknow),
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    imageID: Int = 10
 ){
     Column (
         modifier = Modifier.padding(24.dp))
@@ -38,10 +33,8 @@ fun HomePageCard(
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
         ){
             Column{
-                Image(
-                    painter = painter,
-                    contentDescription = title,
-                    contentScale = ContentScale.Crop,
+                CustomAsyncImage(
+                    url = "https://picsum.photos/id/${imageID}/400/200",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(160.dp)
