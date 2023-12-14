@@ -7,26 +7,28 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.r0930514.fastfoodorderapp.network.DriverViewModel
+import com.r0930514.fastfoodorderapp.network.JsonplaceholderViewModel
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.CAppBar
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.HomePageCard
 @Composable
 fun HomePage(
     navController: NavHostController,
-    viewModel: DriverViewModel = viewModel()
+    viewModel: JsonplaceholderViewModel = viewModel()
 ) {
-    val data by viewModel.drivers.collectAsState(initial = emptyList())
+    val myData by viewModel.myDataList.collectAsState()
     Column {
         CAppBar()
         LazyColumn {
-            items(5) {
+            items(myData.size) {
                 HomePageCard(
-                    title = "首頁資訊$it",
-                    description = "這是資訊$it",
-                    imageID = (it*5)
+                    title = myData[it].title,
+                    description = it.toString(),
+                    imageURL = "https://api.r0930514.work/debug/static/image/food/${it*2}.jpg"
                 )
             }
         }
+
+
     }
 }
 

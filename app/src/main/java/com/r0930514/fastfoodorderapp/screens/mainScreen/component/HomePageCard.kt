@@ -21,7 +21,7 @@ fun HomePageCard(
     title: String = "未命名",
     description: String = "-",
     onClick: () -> Unit = {},
-    imageID: Int = 10
+    imageURL: String = ""
 ){
     Column (
         modifier = Modifier.padding(24.dp))
@@ -34,7 +34,7 @@ fun HomePageCard(
         ){
             Column{
                 CustomAsyncImage(
-                    url = "https://picsum.photos/id/${imageID}/400/200",
+                    url = imageURL,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(160.dp)

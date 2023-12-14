@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance{
-    private val baseUrl = "https://ergast.com/api/"
+    private val baseUrl = "https://jsonplaceholder.typicode.com/"
     private val api by lazy{
         Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -12,7 +12,10 @@ object RetrofitInstance{
             .build()
     }
 
-    val f1ApiService: F1ApiService by lazy {
-        api.create(F1ApiService::class.java)
-    }
+//    val f1ApiService: F1ApiService by lazy {
+//        api.create(F1ApiService::class.java)
+//    }
+    val jsonplaceholderApiService: JsonplaceholderApiService by lazy {
+        api.create(JsonplaceholderApiService::class.java)
+}
 }
