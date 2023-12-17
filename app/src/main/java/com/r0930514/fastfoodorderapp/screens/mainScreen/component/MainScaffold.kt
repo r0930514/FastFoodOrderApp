@@ -2,6 +2,7 @@ package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -22,6 +23,7 @@ import com.r0930514.fastfoodorderapp.screens.mainScreen.OrderPage
 @Composable
 fun MainScaffold(navController: NavHostController) {
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
+    val scrollState = rememberLazyListState()
     Scaffold(
         bottomBar = { CNavBar(selectedItem) {selectedItem = it} },
         floatingActionButton = {
@@ -39,7 +41,7 @@ fun MainScaffold(navController: NavHostController) {
     ) {
         Box(modifier = Modifier.padding(bottom = it.calculateBottomPadding())) {
             when (selectedItem) {
-                0 -> HomePage(navController)
+                0 -> HomePage(navController, scrollState)
                 1 -> OrderPage(navController)
                 2 -> MemberPage(navController)
             }

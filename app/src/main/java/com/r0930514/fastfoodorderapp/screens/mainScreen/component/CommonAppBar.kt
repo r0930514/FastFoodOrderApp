@@ -9,9 +9,11 @@ import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CAppBar() {
+fun CommonAppBar(
+    title: String = "未知的頁面"
+) {
         CenterAlignedTopAppBar(
-            title = { Text(text = "速食店訂餐App") },
+            title = { Text(text = title) },
             colors = TopDefaultAppBarColor()
         )
 }
@@ -19,5 +21,5 @@ fun CAppBar() {
 @Preview
 @Composable
 fun CAppBarPreview(){
-    CAppBar()
+    CommonAppBar()
 }

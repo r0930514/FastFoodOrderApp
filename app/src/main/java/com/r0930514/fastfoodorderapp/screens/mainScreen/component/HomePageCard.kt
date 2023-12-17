@@ -1,16 +1,20 @@
 package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
@@ -39,20 +43,33 @@ fun HomePageCard(
                         .fillMaxWidth()
                         .height(160.dp)
                 )
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(
-                        text = title,
-                        fontSize = 16.sp
-                    )
-                    Text(
-                        text = description,
-                        fontSize = 14.sp
-                    )
+                Row (
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth().
+                        wrapContentHeight(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ){
+                    Column{
+                        Text(
+                            text = title,
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            text = description,
+                            fontSize = 14.sp,
+                            maxLines = 1
+                        )
+                    }
                 }
             }
 
         }
     }
+}
+
+@Composable
+@Preview
+fun HomePageCardPreview(){
+    HomePageCard(description = "FFFggFF\nGGGWWGF")
 }

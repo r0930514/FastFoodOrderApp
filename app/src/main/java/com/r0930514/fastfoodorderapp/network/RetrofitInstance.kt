@@ -17,5 +17,5 @@ object RetrofitInstance{
 //    }
     val jsonplaceholderApiService: JsonplaceholderApiService by lazy {
         api.create(JsonplaceholderApiService::class.java)
-}
+    }
 }
