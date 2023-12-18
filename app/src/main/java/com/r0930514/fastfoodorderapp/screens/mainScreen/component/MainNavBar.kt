@@ -18,11 +18,11 @@ fun CNavBar(selectItem: Int, onSelectedItem: (Int) -> Unit) {
             NavigationBarItem(
                 selectItem == index,
                 { onSelectedItem(index) },
-                { Icon(
-                    imageVector = ImageVector.Companion.vectorResource(item.icon),
-                    contentDescription = item.label
-                ) },
-                label = { Text(item.label) }
+                {
+                    Icon(imageVector = ImageVector.Companion.vectorResource(item.icon), contentDescription = item.label)
+                },
+                label = { Text(item.label) },
+                alwaysShowLabel = false
             )
         }
 

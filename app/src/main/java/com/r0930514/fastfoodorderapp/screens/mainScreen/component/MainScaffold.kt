@@ -3,9 +3,10 @@ package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -28,14 +29,15 @@ fun MainScaffold(navController: NavHostController) {
         bottomBar = { CNavBar(selectedItem) {selectedItem = it} },
         floatingActionButton = {
             if (selectedItem == 1){
-                FloatingActionButton(onClick = {
-                    navController.navigate("ShoppingCart")
-                }) {
-                    Icon(
-                        imageVector = ImageVector.Companion.vectorResource(id = R.drawable.shopping_cart),
-                        contentDescription = null
-                    )
-                }
+                ExtendedFloatingActionButton(
+                    onClick = { navController.navigate("ShoppingCart") },
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.shopping_cart),
+                            contentDescription = null
+                        )
+                    },
+                    text = { Text(text = "購物車") })
             }
         }
     ) {
