@@ -10,8 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.screens.LoginScreen
 import com.r0930514.fastfoodorderapp.screens.PaymentCompleted
 import com.r0930514.fastfoodorderapp.screens.TestScreen
-import com.r0930514.fastfoodorderapp.screens.detailScreen.DetailScreen
+import com.r0930514.fastfoodorderapp.screens.detailScreen.OrderDetailScreen
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.MainScaffold
+import com.r0930514.fastfoodorderapp.screens.productConfigScreen.ProductConfigScreen
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.ShoppingCart
 
 @Composable
@@ -24,13 +25,13 @@ fun MainNav(){
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Companion.Left,
-                animationSpec = tween(700)
+                animationSpec = tween(300)
             )
         },
         exitTransition = {
             slideOutOfContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Companion.Right,
-                animationSpec = tween(700)
+                animationSpec = tween(300)
             )
         }
 
@@ -50,8 +51,12 @@ fun MainNav(){
         composable("PaymentCompleted"){
             PaymentCompleted(navController)
         }
-        composable("Detail"){
-            DetailScreen(navController)
+        composable("OrderDetail"){
+            OrderDetailScreen(navController)
+        }
+        composable("ProductConfig/{ProductID}"){
+            it.arguments?.getString("ProductID")
+                ?.let { it1 -> ProductConfigScreen(navController, it1) }
         }
 
 

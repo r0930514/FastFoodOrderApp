@@ -29,7 +29,8 @@ fun MemberPage(navHostController: NavHostController){
         MemberPageListItem.ChangePassword,
         MemberPageListItem.ChangePhone,
         MemberPageListItem.NotificationSetting,
-        MemberPageListItem.Test
+        MemberPageListItem.Test,
+        MemberPageListItem.Test1
     )
     Column {
         CommonAppBar("會員")
