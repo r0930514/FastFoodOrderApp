@@ -43,7 +43,7 @@ fun CartCard(
             .fillMaxWidth()
             .size(80.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-        onClick = { /*TODO*/ }
+        onClick = onClick
     ) {
         Row (modifier = Modifier.fillMaxWidth()){
             Image(

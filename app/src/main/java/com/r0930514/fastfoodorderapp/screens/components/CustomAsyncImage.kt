@@ -16,7 +16,7 @@ import com.r0930514.fastfoodorderapp.R
 
 @Composable
 fun CustomAsyncImage(
-    url: String,
+    url: String = "",
     modifier: Modifier
 ){
     SubcomposeAsyncImage(

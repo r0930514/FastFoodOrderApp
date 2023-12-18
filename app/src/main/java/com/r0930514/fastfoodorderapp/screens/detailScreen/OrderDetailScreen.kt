@@ -20,7 +20,7 @@ import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(navHostController: NavHostController){
+fun OrderDetailScreen(navHostController: NavHostController){
     Scaffold (
         topBar = {
             CenterAlignedTopAppBar(
