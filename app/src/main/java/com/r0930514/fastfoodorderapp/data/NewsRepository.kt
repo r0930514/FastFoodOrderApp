@@ -14,6 +14,7 @@ class NewsRepository {
         } else {
             emit(emptyList())
         }
+
     }.flowOn(Dispatchers.IO)
 
 }

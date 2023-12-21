@@ -1,17 +1,14 @@
 package com.r0930514.fastfoodorderapp.screens.mainScreen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.r0930514.fastfoodorderapp.screens.components.LoadingCircle
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.CommonAppBar
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.HomePageCard
 import com.r0930514.fastfoodorderapp.viewModels.NewsViewModel
@@ -39,13 +36,7 @@ fun HomePage(
                 }
             }else{
                 item {
-                    Column (
-                        modifier = Modifier.fillParentMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ){
-                        CircularProgressIndicator()
-                    }
+                    LoadingCircle()
                 }
             }
         }
