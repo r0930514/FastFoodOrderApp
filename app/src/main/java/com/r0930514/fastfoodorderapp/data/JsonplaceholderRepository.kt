@@ -1,7 +1,7 @@
 package com.r0930514.fastfoodorderapp.data
 
 import android.util.Log
-import com.r0930514.fastfoodorderapp.network.RetrofitInstance
+import com.r0930514.fastfoodorderapp.network.JsonTestRetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -14,7 +14,7 @@ data class Album(
 )
 
 class JsonplaceholderRepository {
-    private val api = RetrofitInstance.jsonplaceholderApiService
+    private val api = JsonTestRetrofitInstance.jsonplaceholderApiService
     suspend fun getAlbumFlow() = flow {
         val response: Response<List<Album>> = api.getAlbums()
         if (response.isSuccessful) {

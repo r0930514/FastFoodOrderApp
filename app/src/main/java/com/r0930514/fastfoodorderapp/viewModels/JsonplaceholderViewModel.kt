@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.network
+package com.r0930514.fastfoodorderapp.viewModels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

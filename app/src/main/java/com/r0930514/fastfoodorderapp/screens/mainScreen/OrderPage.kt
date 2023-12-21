@@ -9,8 +9,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OrderPage(navController: NavHostController) {
-    val items = listOf("漢堡", "麵食", "小吃", "飲料")
+    val items = listOf("主打套餐", "漢堡", "炸雞", "捲餅", "沙拉", "小吃", "飲料")
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -35,7 +35,7 @@ fun OrderPage(navController: NavHostController) {
 
     Column {
         OrderAppBar()
-        TabRow(
+        ScrollableTabRow(
             selectedTabIndex = pagerState.currentPage) {
             items.forEachIndexed { index, item ->
                 Tab(

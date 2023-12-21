@@ -33,7 +33,7 @@ fun HomePageCard(
         OutlinedCard(
             modifier = Modifier
                 .fillMaxWidth(),
-            onClick = onClick,
+            //onClick = onClick,
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
         ){
             Column{
