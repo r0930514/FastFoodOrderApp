@@ -2,7 +2,7 @@ package com.r0930514.fastfoodorderapp.model
 
 import com.google.gson.annotations.SerializedName
 
-data class NewsData(
+data class NewsModel(
     @SerializedName("news_id")
     val id: Int,
     @SerializedName("news_title")

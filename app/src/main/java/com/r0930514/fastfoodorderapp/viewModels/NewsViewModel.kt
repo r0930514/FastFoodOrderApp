@@ -4,15 +4,15 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.r0930514.fastfoodorderapp.data.NewsRepository
-import com.r0930514.fastfoodorderapp.model.NewsData
+import com.r0930514.fastfoodorderapp.model.NewsModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class NewsViewModel: ViewModel(){
     private val repository = NewsRepository()
-    private val _newsList = MutableStateFlow<List<NewsData>>(emptyList())
-    val newsList: StateFlow<List<NewsData>> = _newsList
+    private val _newsList = MutableStateFlow<List<NewsModel>>(emptyList())
+    val newsList: StateFlow<List<NewsModel>> = _newsList
 
     fun fetchNewsList(){
         viewModelScope.launch {
