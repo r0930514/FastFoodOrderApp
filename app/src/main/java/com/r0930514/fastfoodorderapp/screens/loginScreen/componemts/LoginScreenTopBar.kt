@@ -7,7 +7,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
@@ -16,10 +15,11 @@ import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 @OptIn(ExperimentalMaterial3Api::class)
 fun LoginScreenTopBar(
     navHostController: NavHostController,
-    iconColor: IconButtonColors
+    iconColor: IconButtonColors,
+    title: @Composable () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(text = "登入") },
+        title = title,
         colors = TopDefaultAppBarColor(),
         actions = {
             IconButton(onClick = {

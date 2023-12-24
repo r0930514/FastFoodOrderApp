@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.screens.mainScreen.component
+package com.r0930514.fastfoodorderapp.screens.mainScreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -17,9 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.R
-import com.r0930514.fastfoodorderapp.screens.mainScreen.HomePage
-import com.r0930514.fastfoodorderapp.screens.mainScreen.MemberPage
-import com.r0930514.fastfoodorderapp.screens.mainScreen.OrderPage
+import com.r0930514.fastfoodorderapp.screens.mainScreen.component.CNavBar
 
 @Composable
 fun MainScaffold(navController: NavHostController) {

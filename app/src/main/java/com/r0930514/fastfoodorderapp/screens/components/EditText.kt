@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.screens.loginScreen.componemts
+package com.r0930514.fastfoodorderapp.screens.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginEditText(
+fun EditText(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
