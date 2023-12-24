@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -27,6 +29,7 @@ fun EditText(
     supportingText: String,
     leadingIcon: ImageVector = Icons.Filled.Phone
 ) {
+
     OutlinedTextField(
         value = value,
         onValueChange =  { onValueChange(it) },
@@ -39,6 +42,7 @@ fun EditText(
             imageVector = leadingIcon,
             contentDescription = null
         )},
-        isError = isError
+        isError = isError,
+        visualTransformation = if (keyboardType == KeyboardType.Password) PasswordVisualTransformation() else VisualTransformation.None
     )
 }
