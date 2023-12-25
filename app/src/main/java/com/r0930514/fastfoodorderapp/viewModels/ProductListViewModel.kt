@@ -19,13 +19,12 @@ class ProductListViewModel: ViewModel() {
                 _productList.value = (it ?: emptyList<List<List<Product>>>()) as List<List<Product>>
             }
         }catch (e: Exception){
-            throw e
+            Log.e("ProductListViewModel", "fetchProductList: ${e.message}")
         }
     }
     init {
         viewModelScope.launch {
             fetchProductList()
-            Log.e("ProductListViewModel", "init")
         }
     }
 
