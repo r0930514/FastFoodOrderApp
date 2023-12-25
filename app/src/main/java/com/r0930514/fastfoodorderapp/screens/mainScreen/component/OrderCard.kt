@@ -21,7 +21,11 @@ import com.r0930514.fastfoodorderapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun OrderCard(){
+fun OrderCard(
+    title: String = "營運公告",
+    price: String = "$40"
+
+){
     OutlinedCard(
         modifier = Modifier
             .fillMaxWidth(),
@@ -40,12 +44,12 @@ fun OrderCard(){
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = "營運公告",
+                    text = title,
                     fontSize = 16.sp,
 
                     )
                 Text(
-                    text = "測試",
+                    text = "$price",
                     fontSize = 14.sp
                 )
             }

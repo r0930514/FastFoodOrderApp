@@ -13,25 +13,35 @@ import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.r0930514.fastfoodorderapp.screens.components.LoadingCircle
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.OrderAppBar
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.OrderCard
+import com.r0930514.fastfoodorderapp.viewModels.ProductListViewModel
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OrderPage(navController: NavHostController) {
+fun OrderPage(
+    navController: NavHostController,
+    viewModel: ProductListViewModel = ProductListViewModel()
+) {
+    val productList = viewModel.productList.collectAsState()
     val items = listOf("主打套餐", "漢堡", "炸雞", "捲餅", "沙拉", "小吃", "飲料")
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { items.size }
     )
+
+
+
 
     Column {
         OrderAppBar()
@@ -62,8 +72,17 @@ fun OrderPage(navController: NavHostController) {
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 content = {
-                    items(2*(it+1)) {
-                        OrderCard()
+                    if (productList.value.isNotEmpty()){
+                        items(productList.value[pagerState.currentPage].size) {
+                            OrderCard(
+                                title = productList.value[pagerState.currentPage][it].productName,
+                                price = productList.value[pagerState.currentPage][it].productPrice
+                            )
+                        }
+                    }else{
+                        item{
+                            LoadingCircle()
+                        }
                     }
                 }
             )
