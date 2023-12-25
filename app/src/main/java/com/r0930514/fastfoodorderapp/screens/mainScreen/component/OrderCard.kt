@@ -13,23 +13,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
 fun OrderCard(
+    id: Int = 0,
     title: String = "營運公告",
-    price: String = "$40"
-
+    price: String = "$40",
+    navHostController: NavHostController
 ){
     OutlinedCard(
         modifier = Modifier
             .fillMaxWidth(),
-        onClick = {},
+        onClick = { navHostController.navigate("ProductConfig/${id}") },
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ){
         Column{

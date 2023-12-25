@@ -46,7 +46,7 @@ fun MemberPage(
             onClick = {
                 if(username=="") navHostController.navigate("Login")
             },
-            title = username
+            title = if (username == "") "登入" else username,
         )
         Column(modifier = Modifier
             .padding(12.dp)
