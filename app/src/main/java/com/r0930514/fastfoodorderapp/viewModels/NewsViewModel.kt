@@ -21,12 +21,12 @@ class NewsViewModel: ViewModel(){
                     _newsList.value = it ?: emptyList()
                 }
             }catch (e: Exception){
-                Log.e("NewsViewModel", "fetchNewsList: ${e.message}")
                 throw e
             }
         }
     }
     init {
         fetchNewsList()
+        Log.e("NewsViewModel", "init: ")
     }
 }
