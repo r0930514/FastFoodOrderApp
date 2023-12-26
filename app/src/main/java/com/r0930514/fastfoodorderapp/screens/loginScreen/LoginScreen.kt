@@ -75,13 +75,6 @@ fun LoginScreen(
                                 }else{
                                     isError = true
                                 }
-                                //viewModel.verifyPhone(phoneValue)
-                                //if (viewModel.verifyPhone(phoneValue)){
-                                //    isError = false
-                                //    page = LoginScreenPages.PASSWORD
-                                //}else{
-                                //    isError = true
-                                //}
                             }
                             LoginScreenPages.PASSWORD -> {
                                 delay(1000)

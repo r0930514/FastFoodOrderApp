@@ -27,6 +27,5 @@ class NewsViewModel: ViewModel(){
     }
     init {
         fetchNewsList()
-        Log.e("NewsViewModel", "init: ")
     }
 }
