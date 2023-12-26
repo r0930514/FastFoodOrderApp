@@ -3,7 +3,7 @@ package com.r0930514.fastfoodorderapp.network
 import retrofit2.Retrofit
 
 object RetrofitInstance {
-    private val baseUrl = "https://api.r0930514.work/debug/"
+    private const val baseUrl = "https://api.r0930514.work/debug/"
     private val api by lazy{
         Retrofit.Builder()
             .baseUrl(baseUrl)

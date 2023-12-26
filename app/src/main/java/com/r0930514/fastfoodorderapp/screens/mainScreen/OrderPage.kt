@@ -61,31 +61,31 @@ fun OrderPage(
                 )
             }
         }
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.Top
-        ) {
-            if (productList.value.isEmpty()) {
-                LoadingCircle()
-            }else{
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(24.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(productList.value[pagerState.currentPage].size) {
-                        OrderCard(
-                            id = productList.value[pagerState.currentPage][it].productID,
-                            title = productList.value[pagerState.currentPage][it].productName,
-                            price = productList.value[pagerState.currentPage][it].productPrice,
-                            navHostController = navController
-                        )
-                    }
-                }
-            }
+        if (productList.value.isEmpty()) {
+            LoadingCircle()
+        } else {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.Top,
+            ) {page ->
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(24.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        items(productList.value[page].size) {gridIndex ->
+                            OrderCard(
+                                id = productList.value[page][gridIndex].productID,
+                                title = productList.value[page][gridIndex].productName,
+                                price = productList.value[page][gridIndex].productPrice,
+                                navHostController = navController
+                            )
+                        }
 
+                    }
+            }
         }
 
     }
