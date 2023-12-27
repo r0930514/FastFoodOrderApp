@@ -14,6 +14,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,6 +26,7 @@ import com.r0930514.fastfoodorderapp.screens.mainScreen.component.CommonAppBar
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.MemberPageCard
 import com.r0930514.fastfoodorderapp.screens.mainScreen.items.MemberPageListItem
 import com.r0930514.fastfoodorderapp.viewModels.UserStateViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +34,10 @@ fun MemberPage(
     navHostController: NavHostController,
     viewModel: UserStateViewModel = UserStateViewModel(navHostController.context.dataStore),
 ){
-    val username by viewModel.userName.collectAsState()
+    val username by viewModel.userPhone.collectAsState()
+    val userToken by viewModel.userToken.collectAsState()
+
+    val coroutineScope = rememberCoroutineScope()
     val listItems = listOf(
         MemberPageListItem.Detail,
         MemberPageListItem.ChangePassword,
@@ -61,7 +66,7 @@ fun MemberPage(
                 }
                 if (username != ""){
                     item {
-                        TextButton(onClick = { viewModel.saveUserName("") }) {
+                        TextButton(onClick = { coroutineScope.launch { viewModel.logout() } }) {
                             Text(text = "登出")
                         }
                     }

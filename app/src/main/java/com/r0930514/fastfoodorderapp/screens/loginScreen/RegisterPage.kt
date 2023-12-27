@@ -2,6 +2,8 @@ package com.r0930514.fastfoodorderapp.screens.loginScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
@@ -45,33 +47,39 @@ fun RegisterPage(
             contentDescription = null,
             modifier = Modifier.size(128.dp)
         )
-        EditText(
-            value = phoneValue,
-            onValueChange =  onPhoneValueChange,
-            keyboardType = KeyboardType.Phone,
-            label = "輸入電話號碼",
-            isError = isErrorValue,
-            supportingText = "使用電話號碼註冊一個新帳號",
-            leadingIcon = Icons.Filled.Phone,
-        )
-        EditText(
-            value = passwordValue,
-            onValueChange =  onPasswordValueChange,
-            keyboardType = KeyboardType.Password,
-            label = "輸入要設定的密碼",
-            isError = isErrorValue,
-            supportingText = "8個以上字元，大小寫英文字母與數字",
-            leadingIcon = Icons.Filled.Lock,
-        )
-        EditText(
-            value = confirmPasswordValue,
-            onValueChange = { confirmPasswordValue = it },
-            keyboardType = KeyboardType.Password,
-            label = "再次輸入密碼",
-            isError = isErrorValue,
-            supportingText = "請再次輸入密碼",
-            leadingIcon = Icons.Filled.Lock,
-        )
+        val modifier = Modifier.padding(vertical = 16.dp, horizontal = 48.dp).fillMaxWidth()
+        Column {
+            EditText(
+                value = phoneValue,
+                onValueChange = onPhoneValueChange,
+                keyboardType = KeyboardType.Phone,
+                label = "輸入電話號碼",
+                isError = isErrorValue,
+                supportingText = "使用電話號碼註冊一個新帳號",
+                leadingIcon = Icons.Filled.Phone,
+                modifier = modifier
+            )
+            EditText(
+                value = passwordValue,
+                onValueChange = onPasswordValueChange,
+                keyboardType = KeyboardType.Password,
+                label = "輸入要設定的密碼",
+                isError = isErrorValue,
+                supportingText = "8個以上字元，大小寫英文字母與數字",
+                leadingIcon = Icons.Filled.Lock,
+                modifier = modifier
+            )
+            EditText(
+                value = confirmPasswordValue,
+                onValueChange = { confirmPasswordValue = it },
+                keyboardType = KeyboardType.Password,
+                label = "再次輸入密碼",
+                isError = isErrorValue,
+                supportingText = "請再次輸入密碼",
+                leadingIcon = Icons.Filled.Lock,
+                modifier = modifier
+            )
+        }
     }
 
 }

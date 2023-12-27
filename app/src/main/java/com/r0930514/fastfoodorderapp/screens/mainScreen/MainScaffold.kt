@@ -26,7 +26,7 @@ import com.r0930514.fastfoodorderapp.viewModels.UserStateViewModel
 @Composable
 fun MainScaffold(navController: NavHostController) {
     val userStateViewModel = UserStateViewModel(navController.context.dataStore)
-    val username by userStateViewModel.userName.collectAsState()
+    val username by userStateViewModel.userPhone.collectAsState()
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
     val scrollState = rememberLazyListState()
     Scaffold(

@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -26,7 +25,6 @@ import com.r0930514.fastfoodorderapp.dataStore
 import com.r0930514.fastfoodorderapp.screens.components.LoadingFloatBtn
 import com.r0930514.fastfoodorderapp.screens.loginScreen.componemts.LoginScreenTopBar
 import com.r0930514.fastfoodorderapp.viewModels.UserStateViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -39,15 +37,11 @@ fun LoginScreen(
 
     var phoneValue by rememberSaveable { mutableStateOf("") }
     var passwordValue by rememberSaveable { mutableStateOf("") }
-    var isPhoneValid by rememberSaveable { mutableStateOf(false )}
     var isError by rememberSaveable { mutableStateOf(false) }
     var isLoading by rememberSaveable { mutableStateOf(false) }
 
-    val username by viewModel.userName.collectAsState()
-
     //現在的頁面
-    var page by rememberSaveable { mutableStateOf<LoginScreenPages>(LoginScreenPages.PHONE) }
-
+    var page by rememberSaveable { mutableStateOf(LoginScreenPages.PHONE) }
     //Coroutine
     val coroutineScope = rememberCoroutineScope()
 
@@ -59,52 +53,48 @@ fun LoginScreen(
         },
         floatingActionButton = {
             LoadingFloatBtn(
-                isLoading = isLoading,
-                onClick = {
-                    coroutineScope.launch {
-                        isLoading = true
-                        when(page){
-                            LoginScreenPages.PHONE -> {
-                                delay(1000)
-                                isLoading = false
-                                if (phoneValue == "0977144496" ){
-                                    isError = false
-                                    page = LoginScreenPages.PASSWORD
-                                }else if(phoneValue == "0977144497"){
-                                    page = LoginScreenPages.REGISTER
-                                }else{
-                                    isError = true
-                                }
-                            }
-                            LoginScreenPages.PASSWORD -> {
-                                delay(1000)
-                                isLoading = false
-                                if (passwordValue == "12345678"){
-                                    isError = false
-                                    viewModel.saveUserName(phoneValue)
-                                    Toast.makeText(navHostController.context, "登入成功", Toast.LENGTH_SHORT).show()
-
-                                    navHostController.popBackStack()
-                                }else{
-                                    isError = true
-                                }
-                            }
-                            LoginScreenPages.REGISTER -> {
-                                delay(1000)
-                                isLoading = false
-                                if (phoneValue.length == 10 && passwordValue.length >= 8){
-                                    isError = false
-                                    Toast.makeText(navHostController.context, "註冊成功", Toast.LENGTH_SHORT).show()
-                                }else{
-                                    isError = true
-                                }
+                isLoading = isLoading
+            ) {
+                coroutineScope.launch {
+                    isLoading = true
+                    isError = false
+                    //判斷目前頁面調整按鈕功能
+                    when (page) {
+                        LoginScreenPages.PHONE -> {
+                            page = try {
+                                viewModel.checkUserExist(phoneValue)
+                                LoginScreenPages.PASSWORD
+                            } catch (e: Exception) {
+                                Toast.makeText(navHostController.context, "此帳號不存在", Toast.LENGTH_SHORT).show()
+                                LoginScreenPages.REGISTER
                             }
                         }
 
-                    }
+                        LoginScreenPages.PASSWORD -> {
+                            try {
+                                viewModel.login(phoneValue, passwordValue)
+                                Toast.makeText(navHostController.context, "登入成功", Toast.LENGTH_SHORT).show()
+                                navHostController.popBackStack()
+                            } catch (e: Exception) {
+                                isError = true
+                                Toast.makeText(navHostController.context, "登入失敗$e", Toast.LENGTH_SHORT).show()
+                            }
+                        }
 
+                        LoginScreenPages.REGISTER -> {
+                            try {
+                                viewModel.register(phoneValue, passwordValue)
+                                Toast.makeText(navHostController.context, "註冊成功，請重新登入", Toast.LENGTH_SHORT).show()
+                                navHostController.popBackStack()
+                            } catch (e: Exception) {
+                                isError = true
+                                Toast.makeText(navHostController.context, "註冊失敗$e", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    isLoading = false
                 }
-            )
+            }
         }
         
         )
@@ -137,7 +127,7 @@ fun LoginScreen(
                 )
             }
         }
-    }   
+    }
 }
 
 
