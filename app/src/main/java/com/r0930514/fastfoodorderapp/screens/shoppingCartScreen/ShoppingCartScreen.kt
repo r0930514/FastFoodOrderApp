@@ -30,7 +30,7 @@ fun ShoppingCart(navHostController: NavHostController){
                         description = "大 / 不要酸黃瓜",
                         price = it*50,
                         onClick = {
-                            navHostController.navigate("ProductConfig/${it}")
+                            navHostController.navigate("ProductEdit/${it}")
                         }
                     )
                 }

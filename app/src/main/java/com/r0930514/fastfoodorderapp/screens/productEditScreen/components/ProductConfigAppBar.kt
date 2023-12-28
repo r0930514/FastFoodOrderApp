@@ -1,7 +1,8 @@
-package com.r0930514.fastfoodorderapp.screens.productConfigScreen.components
+package com.r0930514.fastfoodorderapp.screens.productEditScreen.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -10,14 +11,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavHostController
-import com.r0930514.fastfoodorderapp.R
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun ProductConfigAppBar(navHostController: NavHostController) {
+fun ProductEditAppBar(
+    navHostController: NavHostController,
+    isEdit: Boolean = false,
+    deleteBtnOnClick: () -> Unit = {},
+    ) {
     CenterAlignedTopAppBar(
         title = { Text(text = "") },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -34,11 +36,13 @@ fun ProductConfigAppBar(navHostController: NavHostController) {
             }
         },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.remove_shopping_cart),
-                    contentDescription = "清空購物車"
-                )
+            if (isEdit){
+                IconButton(onClick = deleteBtnOnClick) {
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "刪除"
+                    )
+                }
             }
         }
     )

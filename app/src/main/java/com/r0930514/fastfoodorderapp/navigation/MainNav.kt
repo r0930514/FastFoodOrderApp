@@ -12,7 +12,8 @@ import com.r0930514.fastfoodorderapp.screens.TestScreen
 import com.r0930514.fastfoodorderapp.screens.detailScreen.OrderDetailScreen
 import com.r0930514.fastfoodorderapp.screens.loginScreen.LoginScreen
 import com.r0930514.fastfoodorderapp.screens.mainScreen.MainScaffold
-import com.r0930514.fastfoodorderapp.screens.productConfigScreen.ProductConfigScreen
+import com.r0930514.fastfoodorderapp.screens.productEditScreen.ProductAddScreen
+import com.r0930514.fastfoodorderapp.screens.productEditScreen.ProductEditScreen
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.ShoppingCart
 
 @Composable
@@ -54,9 +55,13 @@ fun MainNav(){
         composable("OrderDetail"){
             OrderDetailScreen(navController)
         }
-        composable("ProductConfig/{ProductID}"){
+        composable("ProductEdit/{OrderDetailID}"){
+            it.arguments?.getString("OrderDetailID")
+                ?.let { it1 -> ProductEditScreen(navController, it1) }
+        }
+        composable("ProductAdd/{ProductID}"){
             it.arguments?.getString("ProductID")
-                ?.let { it1 -> ProductConfigScreen(navController, it1) }
+                ?.let { it1 -> ProductAddScreen(navController, it1) }
         }
 
 

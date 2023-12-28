@@ -29,7 +29,7 @@ fun OrderCard(
     OutlinedCard(
         modifier = Modifier
             .fillMaxWidth(),
-        onClick = { navHostController.navigate("ProductConfig/${id}") },
+        onClick = { navHostController.navigate("ProductAdd/${id}") },
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ){
         Column{
@@ -49,7 +49,7 @@ fun OrderCard(
 
                     )
                 Text(
-                    text = "$price",
+                    text = price,
                     fontSize = 14.sp
                 )
             }

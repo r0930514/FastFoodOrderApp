@@ -1,5 +1,6 @@
-package com.r0930514.fastfoodorderapp.screens.productConfigScreen
+package com.r0930514.fastfoodorderapp.screens.productEditScreen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,41 +10,45 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.r0930514.fastfoodorderapp.R
 import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
-import com.r0930514.fastfoodorderapp.screens.productConfigScreen.components.ProductConfigAppBar
+import com.r0930514.fastfoodorderapp.screens.productEditScreen.components.ProductEditAppBar
 
 @Composable
-fun ProductConfigScreen(
+fun ProductAddScreen(
     navHostController: NavHostController = rememberNavController(),
     productID: String = "0",
+    //以下不留 使用viewModel去取得資料
     productImage: String = "",
     productName: String = "",
-    productPrice: String = "",
+    productPrice: String = "1",
     productDescription: String = "",
-    productCount: Int = 0,
-    isEdit: Boolean = false,
 ){
+    var productCount by rememberSaveable { mutableIntStateOf(1) }
     Scaffold (
         topBar = {
             CustomAsyncImage(
@@ -52,7 +57,7 @@ fun ProductConfigScreen(
                     .fillMaxWidth()
                     .height(320.dp),
             )
-            ProductConfigAppBar(navHostController)
+            ProductEditAppBar(navHostController)
         },
         bottomBar = {
             BottomAppBar {
@@ -62,16 +67,21 @@ fun ProductConfigScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxHeight()
                     ){
-                        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)){
-                            Icon(imageVector = Icons.Filled.ArrowBack , contentDescription = null)
+                        TextButton(
+                            onClick = { productCount-- },
+                            enabled = productCount != 0
+                        )
+                        {
+                            Icon(imageVector = ImageVector.Companion.vectorResource(R.drawable.horizontal_rule), contentDescription = null)
                         }
                         Text(
                             text = "$productCount",
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Medium,
+                            modifier = Modifier.clickable { productCount=1 }
                         )
-                        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)) {
-                            Icon(imageVector = Icons.Filled.ArrowForward , contentDescription = null)
+                        TextButton(onClick = { productCount++ } ) {
+                            Icon(imageVector = ImageVector.Companion.vectorResource(R.drawable.add) , contentDescription = null)
                         }
                     }
                     Row(
@@ -80,7 +90,7 @@ fun ProductConfigScreen(
                         modifier = Modifier.fillMaxHeight()
                     ) {
                         Text(
-                            text = "$productPrice",
+                            text = "$${productPrice.toInt()*productCount}",
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Medium,
                         )
@@ -89,7 +99,7 @@ fun ProductConfigScreen(
                             containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                             elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
                         ) {
-                            Icon(Icons.Filled.ArrowForward, null)
+                            Icon(Icons.Filled.Add, null)
                         }
                     }
                 }
@@ -108,9 +118,9 @@ fun ProductConfigScreen(
                 ){
                     Text(
                         text = productName,
-                        fontSize = 30.sp,
+                        fontSize = 30.sp
                     )
-                    Text(text = productPrice, fontSize = 30.sp)
+                    Text(text = "$$productPrice", fontSize = 30.sp)
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(text = productDescription, fontSize = 16.sp, lineHeight = 28.sp)
@@ -122,13 +132,12 @@ fun ProductConfigScreen(
 @Composable
 @Preview(showBackground = true)
 fun ProductConfigScreenPreview(){
-    ProductConfigScreen(
+    ProductAddScreen(
         productID = "0",
         productImage = "",
         productName = "Product Name",
-        productPrice = "$30",
+        productPrice = "30",
         productDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac augue mauris. Aenean pulvinar id velit a congue. In ullamcorper mollis metus sed scelerisque. Curabitur nulla felis, malesuada non ",
-        isEdit = false,
     )
 }
 
