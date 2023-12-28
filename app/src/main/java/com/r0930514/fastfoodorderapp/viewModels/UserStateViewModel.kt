@@ -74,6 +74,5 @@ class UserStateViewModel(private val dataStore: DataStore<Preferences>): ViewMod
     init {
         getUserToken()
         getUserPhone()
-        checkTokenValid(userToken.value)
     }
 }
