@@ -9,13 +9,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.r0930514.fastfoodorderapp.database.CartDatabase
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.CartAppBar
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.CartBottomBar
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components.CartCard
+import com.r0930514.fastfoodorderapp.viewModels.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShoppingCart(navHostController: NavHostController){
+    val cartViewModel: CartViewModel = CartViewModel(CartDatabase.getDatabase(navHostController.context))
     Scaffold (
         topBar = { CartAppBar(navHostController) },
         bottomBar = { CartBottomBar() }
