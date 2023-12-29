@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,25 +30,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.R
 import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
+import com.r0930514.fastfoodorderapp.screens.components.LoadingCircle
 import com.r0930514.fastfoodorderapp.screens.productEditScreen.components.ProductEditAppBar
+import com.r0930514.fastfoodorderapp.viewModels.ProductViewModel
 
 @Composable
 fun ProductAddScreen(
     navHostController: NavHostController = rememberNavController(),
     productID: String = "0",
-    //以下不留 使用viewModel去取得資料
-    productImage: String = "",
-    productName: String = "",
-    productPrice: String = "1",
-    productDescription: String = "",
 ){
+    val productViewModel = ProductViewModel(productID)
+    val productData = productViewModel.productList.collectAsState()
     var productCount by rememberSaveable { mutableIntStateOf(1) }
     Scaffold (
         topBar = {
@@ -90,7 +89,7 @@ fun ProductAddScreen(
                         modifier = Modifier.fillMaxHeight()
                     ) {
                         Text(
-                            text = "$${productPrice.toInt()*productCount}",
+                            text = "$${(if (productData.value.isNotEmpty()) productData.value[0].productPrice.substring(1).toDouble().toInt() else 0) *productCount}",
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Medium,
                         )
@@ -106,38 +105,35 @@ fun ProductAddScreen(
             }
         }
     ){
-        Column (
-            modifier = Modifier.padding(it)
-        ){
-            Column (
-                Modifier.padding(horizontal = 20.dp, vertical = 24.dp)
-            ){
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
+        if (productData.value.isNotEmpty()){
+            Column(
+                modifier = Modifier.padding(it)
+            ) {
+                Column(
+                    Modifier.padding(horizontal = 20.dp, vertical = 24.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = productData.value[0].productName,
+                            fontSize = 30.sp
+                        )
+                        Text(text = "$${if (productData.value.isNotEmpty()) productData.value[0].productPrice.substring(1).toDouble().toInt() else 0}", fontSize = 30.sp)
+                    }
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = productName,
-                        fontSize = 30.sp
+                        text = productData.value[0].productIllustrate,
+                        fontSize = 16.sp,
+                        lineHeight = 28.sp
                     )
-                    Text(text = "$$productPrice", fontSize = 30.sp)
                 }
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(text = productDescription, fontSize = 16.sp, lineHeight = 28.sp)
             }
+        }else{
+            LoadingCircle()
         }
     }
 }
 
-@Composable
-@Preview(showBackground = true)
-fun ProductConfigScreenPreview(){
-    ProductAddScreen(
-        productID = "0",
-        productImage = "",
-        productName = "Product Name",
-        productPrice = "30",
-        productDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac augue mauris. Aenean pulvinar id velit a congue. In ullamcorper mollis metus sed scelerisque. Curabitur nulla felis, malesuada non ",
-    )
-}
 
