@@ -12,8 +12,8 @@ import com.r0930514.fastfoodorderapp.screens.TestScreen
 import com.r0930514.fastfoodorderapp.screens.detailScreen.OrderDetailScreen
 import com.r0930514.fastfoodorderapp.screens.loginScreen.LoginScreen
 import com.r0930514.fastfoodorderapp.screens.mainScreen.MainScaffold
-import com.r0930514.fastfoodorderapp.screens.productEditScreen.ProductAddScreen
-import com.r0930514.fastfoodorderapp.screens.productEditScreen.ProductEditScreen
+import com.r0930514.fastfoodorderapp.screens.productScreen.ProductAddScreen
+import com.r0930514.fastfoodorderapp.screens.productScreen.ProductEditScreen
 import com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.ShoppingCart
 
 @Composable
