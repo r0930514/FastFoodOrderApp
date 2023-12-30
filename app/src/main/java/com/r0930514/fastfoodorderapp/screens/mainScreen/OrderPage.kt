@@ -18,7 +18,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.screens.components.LoadingCircle
@@ -32,9 +31,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun OrderPage(
     navController: NavHostController,
+    productListViewModel: ProductListViewModel = viewModel()
 ) {
     //
-    val productListViewModel: ProductListViewModel = viewModel(LocalViewModelStoreOwner.current!!)
     val productList = productListViewModel.productList.collectAsState()
     val items = listOf("主打套餐", "漢堡", "炸雞", "捲餅", "沙拉", "小吃", "飲料")
     val scope = rememberCoroutineScope()
