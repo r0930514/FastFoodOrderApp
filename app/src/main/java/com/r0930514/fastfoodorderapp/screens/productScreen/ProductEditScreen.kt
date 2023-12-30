@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.screens.productEditScreen
+package com.r0930514.fastfoodorderapp.screens.productScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +36,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.R
 import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
-import com.r0930514.fastfoodorderapp.screens.productEditScreen.components.ProductEditAppBar
+import com.r0930514.fastfoodorderapp.screens.productScreen.components.ProductEditAppBar
 
 @Composable
 fun ProductEditScreen(

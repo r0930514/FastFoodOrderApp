@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.screens.productEditScreen.components
+package com.r0930514.fastfoodorderapp.screens.productScreen.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack

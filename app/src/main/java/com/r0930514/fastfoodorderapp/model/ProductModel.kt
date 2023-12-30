@@ -17,12 +17,14 @@ data class Product(
     val productIllustrate: String, //產品說明
     @SerializedName("product_class")
     val productClass: String,
-    @SerializedName("product_specification")
+    @SerializedName("spec")
     val productSpecification: List<ProductSpecification> = emptyList(),
 )
 
 data class ProductSpecification(
+    @SerializedName("specification_id")
     val specificationID: String,
+    @SerializedName("specification_name")
     val specificationName: String,
 )
 

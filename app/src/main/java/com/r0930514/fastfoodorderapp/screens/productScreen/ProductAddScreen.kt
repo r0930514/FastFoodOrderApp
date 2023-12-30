@@ -1,4 +1,4 @@
-package com.r0930514.fastfoodorderapp.screens.productEditScreen
+package com.r0930514.fastfoodorderapp.screens.productScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
@@ -37,7 +38,8 @@ import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.R
 import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
 import com.r0930514.fastfoodorderapp.screens.components.LoadingCircle
-import com.r0930514.fastfoodorderapp.screens.productEditScreen.components.ProductEditAppBar
+import com.r0930514.fastfoodorderapp.screens.productScreen.components.ProductEditAppBar
+import com.r0930514.fastfoodorderapp.screens.productScreen.components.RadioBtnGroup
 import com.r0930514.fastfoodorderapp.viewModels.ProductViewModel
 
 @Composable
@@ -46,8 +48,9 @@ fun ProductAddScreen(
     productID: String = "0",
 ){
     val productViewModel = ProductViewModel(productID)
-    val productData = productViewModel.productList.collectAsState()
+    val productData by productViewModel.productList.collectAsState()
     var productCount by rememberSaveable { mutableIntStateOf(1) }
+    var productSelectedSpecID by rememberSaveable { mutableIntStateOf(0) }
     Scaffold (
         topBar = {
             CustomAsyncImage(
@@ -89,7 +92,7 @@ fun ProductAddScreen(
                         modifier = Modifier.fillMaxHeight()
                     ) {
                         Text(
-                            text = "$${(if (productData.value.isNotEmpty()) productData.value[0].productPrice.substring(1).toDouble().toInt() else 0) *productCount}",
+                            text = "$${(if (productData.isNotEmpty()) productData[0].productPrice.substring(1).toDouble().toInt() else 0) *productCount}",
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Medium,
                         )
@@ -105,7 +108,7 @@ fun ProductAddScreen(
             }
         }
     ){
-        if (productData.value.isNotEmpty()){
+        if (productData.isNotEmpty()){
             Column(
                 modifier = Modifier.padding(it)
             ) {
@@ -117,17 +120,33 @@ fun ProductAddScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = productData.value[0].productName,
+                            text = productData[0].productName,
                             fontSize = 30.sp
                         )
-                        Text(text = "$${if (productData.value.isNotEmpty()) productData.value[0].productPrice.substring(1).toDouble().toInt() else 0}", fontSize = 30.sp)
+                        Text(text = "$${if (productData.isNotEmpty()) productData[0].productPrice.substring(1).toDouble().toInt() else 0}", fontSize = 30.sp)
                     }
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = productData.value[0].productIllustrate,
+                        text = productData[0].productIllustrate,
                         fontSize = 16.sp,
                         lineHeight = 28.sp
                     )
+                    LazyColumn(
+                        Modifier.padding(vertical = 16.dp)
+                    ){
+                        if (productData.isNotEmpty()){
+                            items(productData[0].productSpecification.size) { i ->
+                                RadioBtnGroup(
+                                    text = productData[0].productSpecification[i].specificationName,
+                                    selected = productSelectedSpecID == productData[0].productSpecification[i].specificationID.toInt(),
+                                    onClick = {
+                                        productSelectedSpecID =
+                                            productData[0].productSpecification[i].specificationID.toInt()
+                                    }
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }else{
