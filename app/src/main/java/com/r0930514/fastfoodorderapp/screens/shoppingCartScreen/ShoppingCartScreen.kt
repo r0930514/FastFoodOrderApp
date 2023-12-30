@@ -28,22 +28,22 @@ fun ShoppingCart(
     Scaffold (
         topBar = { CartAppBar(navHostController) },
         bottomBar = { CartBottomBar() }
-    ){ it ->
+    ){
         Column (modifier = Modifier.padding(it)){
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 content = {
                 items(cartList.size){i ->
+                    val item = cartList[i]
                     CartCard(
-                        title = cartList[i].name,
-                        description = "大 / 不要酸黃瓜",
-                        price = cartList[i].price,
+                        title = item.productName,
+                        description = item.specificationName + "*" + item.productCount,
+                        price = item.productPrice*item.productCount,
                         onClick = {
-                            navHostController.navigate("ProductEdit/${cartList[i].id}")
+                            navHostController.navigate("ProductEdit/${item.id}")
                         }
                     )
                 }
-
             })
         }
     }

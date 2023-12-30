@@ -9,12 +9,21 @@ data class CartEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int?,
-    @ColumnInfo(name = "name")
-    val name: String,
-    @ColumnInfo(name = "price")
-    val price: Int,
-    @ColumnInfo(name = "count")
-    val count: Int,
+
+    @ColumnInfo(name = "product_id")
+    val productID: String,
+    @ColumnInfo(name = "specification_id")
+    val specificationID: String,
+    @ColumnInfo(name = "product_count")
+    val productCount: Int,
+
+    @ColumnInfo(name = "specification_name")
+    val specificationName: String,
+    @ColumnInfo(name = "product_name")
+    val productName: String,
+    @ColumnInfo(name = "product_price")
+    val productPrice: Int,
+
     @ColumnInfo(name = "image")
     val image: String
 )

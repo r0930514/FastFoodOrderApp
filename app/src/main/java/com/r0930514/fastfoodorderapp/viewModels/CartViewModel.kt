@@ -31,6 +31,15 @@ class CartViewModel(private val cartRepository: CartRepository): ViewModel() {
             }
         }
     }
+    fun insert(cartEntity: CartEntity){
+        viewModelScope.launch {
+            try{
+                cartRepository.insert(cartEntity)
+            }catch (e: Exception){
+                Log.e("CartViewModel", "insert: ${e.message}")
+            }
+        }
+    }
     companion object{
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

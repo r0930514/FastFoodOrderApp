@@ -33,19 +33,23 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.R
+import com.r0930514.fastfoodorderapp.database.CartEntity
 import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
 import com.r0930514.fastfoodorderapp.screens.components.LoadingCircle
 import com.r0930514.fastfoodorderapp.screens.productScreen.components.ProductEditAppBar
 import com.r0930514.fastfoodorderapp.screens.productScreen.components.RadioBtnGroup
+import com.r0930514.fastfoodorderapp.viewModels.CartViewModel
 import com.r0930514.fastfoodorderapp.viewModels.ProductViewModel
 
 @Composable
 fun ProductAddScreen(
     navHostController: NavHostController = rememberNavController(),
     productID: String = "0",
+    cartViewModel: CartViewModel = viewModel(factory = CartViewModel.Factory)
 ){
     val productViewModel = ProductViewModel(productID)
     val productData by productViewModel.productList.collectAsState()
@@ -97,7 +101,21 @@ fun ProductAddScreen(
                             fontWeight = FontWeight.Medium,
                         )
                         FloatingActionButton(
-                            onClick = { navHostController.popBackStack() },
+                            onClick = {
+                                      cartViewModel.insert(
+                                          CartEntity(
+                                              id = null,
+                                              productName = productData[0].productName,
+                                              productPrice = productData[0].productPrice.substring(1).toDouble().toInt(),
+                                              specificationID = productSelectedSpecID.toString(),
+                                              productCount = productCount,
+                                              specificationName = productData[0].productSpecification[0].specificationName,
+                                              productID = productData[0].productID.toString(),
+                                              image = productData[0].imageURL,
+                                          )
+                                      )
+                                navHostController.popBackStack()
+                            },
                             containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                             elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
                         ) {
