@@ -1,5 +1,6 @@
 package com.r0930514.fastfoodorderapp.screens.productScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -102,19 +103,24 @@ fun ProductAddScreen(
                         )
                         FloatingActionButton(
                             onClick = {
-                                      cartViewModel.insert(
-                                          CartEntity(
-                                              id = null,
-                                              productName = productData[0].productName,
-                                              productPrice = productData[0].productPrice.substring(1).toDouble().toInt(),
-                                              specificationID = productSelectedSpecID.toString(),
-                                              productCount = productCount,
-                                              specificationName = productData[0].productSpecification.find { it.specificationID.toInt() == productSelectedSpecID }?.specificationName!! ,
-                                              productID = productData[0].productID.toString(),
-                                              image = productData[0].imageURL,
-                                          )
-                                      )
-                                navHostController.popBackStack()
+                                if (productSelectedSpecID != 0){
+                                    cartViewModel.insert(
+                                        CartEntity(
+                                            id = null,
+                                            productName = productData[0].productName,
+                                            productPrice = productData[0].productPrice.substring(1)
+                                                .toDouble().toInt(),
+                                            specificationID = productSelectedSpecID.toString(),
+                                            productCount = productCount,
+                                            specificationName = productData[0].productSpecification.find { it.specificationID.toInt() == productSelectedSpecID }?.specificationName!!,
+                                            productID = productData[0].productID.toString(),
+                                            image = productData[0].imageURL,
+                                        )
+                                    )
+                                    navHostController.popBackStack()
+                                }else{
+                                    Toast.makeText(navHostController.context, "請選擇規格!!", Toast.LENGTH_SHORT).show()
+                                }
                             },
                             containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                             elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
