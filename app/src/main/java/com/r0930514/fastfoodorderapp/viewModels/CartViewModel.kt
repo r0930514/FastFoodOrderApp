@@ -24,7 +24,7 @@ class CartViewModel(private val cartRepository: CartRepository): ViewModel() {
         viewModelScope.launch {
             try{
                 cartRepository.cartList.collect {
-                    _cartList.value = it ?: emptyList()
+                    _cartList.value = it
                 }
             }catch (e: Exception){
                 Log.e("CartViewModel", "fetchCartList: ${e.message}")
@@ -37,6 +37,16 @@ class CartViewModel(private val cartRepository: CartRepository): ViewModel() {
                 cartRepository.insert(cartEntity)
             }catch (e: Exception){
                 Log.e("CartViewModel", "insert: ${e.message}")
+            }
+        }
+    }
+    fun getItem(orderDetailID: String) = cartRepository.getItem(orderDetailID)
+    fun delete(cartEntity: CartEntity){
+        viewModelScope.launch {
+            try{
+                cartRepository.delete(cartEntity)
+            }catch (e: Exception){
+                Log.e("CartViewModel", "delete: ${e.message}")
             }
         }
     }
