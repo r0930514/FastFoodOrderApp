@@ -109,7 +109,7 @@ fun ProductAddScreen(
                                               productPrice = productData[0].productPrice.substring(1).toDouble().toInt(),
                                               specificationID = productSelectedSpecID.toString(),
                                               productCount = productCount,
-                                              specificationName = productData[0].productSpecification[0].specificationName,
+                                              specificationName = productData[0].productSpecification.find { it.specificationID.toInt() == productSelectedSpecID }?.specificationName!! ,
                                               productID = productData[0].productID.toString(),
                                               image = productData[0].imageURL,
                                           )
