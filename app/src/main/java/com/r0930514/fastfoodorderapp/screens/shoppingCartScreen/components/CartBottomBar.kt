@@ -28,6 +28,7 @@ import com.r0930514.fastfoodorderapp.R
 @Preview
 fun CartBottomBar(
     totalPrice: Int = 0,
+    floatBtnOnClick: () -> Unit = {}
 ){
     BottomAppBar(){
         Row(
@@ -61,7 +62,7 @@ fun CartBottomBar(
                     fontWeight = FontWeight.Medium,
                 )
                 FloatingActionButton(
-                    onClick = { /* do something */ },
+                    onClick = floatBtnOnClick,
                     containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                     elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
                 ) {

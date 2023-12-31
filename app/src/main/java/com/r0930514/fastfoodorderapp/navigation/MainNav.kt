@@ -7,7 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.r0930514.fastfoodorderapp.screens.CartCompleted
 import com.r0930514.fastfoodorderapp.screens.PaymentCompleted
+import com.r0930514.fastfoodorderapp.screens.PaymentScreen
 import com.r0930514.fastfoodorderapp.screens.TestScreen
 import com.r0930514.fastfoodorderapp.screens.detailScreen.OrderDetailScreen
 import com.r0930514.fastfoodorderapp.screens.loginScreen.LoginScreen
@@ -63,6 +65,21 @@ fun MainNav(){
             it.arguments?.getString("ProductID")
                 ?.let { it1 -> ProductAddScreen(navController, it1) }
         }
+        //選擇用餐方式
+        composable("OrderType"){
+            CartCompleted(navController)
+        }
+        //前往付款
+        composable("Payment"){
+            PaymentScreen(navController)
+        }
+        //付款完成
+        composable("PaymentCompleted"){
+            PaymentCompleted(navController)
+        }
+
+
+
 
 
     }

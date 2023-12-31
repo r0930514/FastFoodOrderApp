@@ -28,7 +28,9 @@ fun ShoppingCart(
     val totalPrice by viewModel.totalPrice.collectAsState()
     Scaffold (
         topBar = { CartAppBar(navHostController) },
-        bottomBar = { CartBottomBar( totalPrice ) }
+        bottomBar = { CartBottomBar( totalPrice ){
+            navHostController.navigate("OrderType")
+        } }
     ){
         Column (modifier = Modifier.padding(it)){
             LazyColumn(

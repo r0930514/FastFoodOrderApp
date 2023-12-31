@@ -45,7 +45,8 @@ fun OrderPage(
     Column {
         OrderAppBar()
         ScrollableTabRow(
-            selectedTabIndex = pagerState.currentPage) {
+            selectedTabIndex = pagerState.currentPage,
+        ) {
             items.forEachIndexed { index, item ->
                 Tab(
                     selected = (index == pagerState.currentPage),

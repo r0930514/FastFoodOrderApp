@@ -2,12 +2,16 @@ package com.r0930514.fastfoodorderapp.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
@@ -56,6 +60,22 @@ fun CartCompleted(navHostController: NavHostController = rememberNavController()
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = {
+                    navHostController.navigate(
+                        "Payment",
+                    )
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowForward,
+                        contentDescription = null
+                    )
+                },
+                text = { Text(text = "結帳") }
+            )
         }
     ){
         Column (Modifier.padding(it)){
@@ -77,6 +97,9 @@ fun CartCompleted(navHostController: NavHostController = rememberNavController()
                         }
                     )
                 }
+            }
+            HorizontalPager(state = pagerState) {
+                Text(text = orderTypes[pagerState.currentPage], Modifier.fillMaxSize())
             }
         }
     }
