@@ -37,6 +37,7 @@ fun LoginScreen(
 
     var phoneValue by rememberSaveable { mutableStateOf("") }
     var passwordValue by rememberSaveable { mutableStateOf("") }
+    var confirmPasswordValue by rememberSaveable { mutableStateOf("") }
     var isError by rememberSaveable { mutableStateOf(false) }
     var isLoading by rememberSaveable { mutableStateOf(false) }
 
@@ -83,7 +84,7 @@ fun LoginScreen(
 
                         LoginScreenPages.REGISTER -> {
                             try {
-                                viewModel.register(phoneValue, passwordValue)
+                                viewModel.register(phoneValue, passwordValue, confirmPasswordValue)
                                 Toast.makeText(navHostController.context, "註冊成功，請重新登入", Toast.LENGTH_SHORT).show()
                                 navHostController.popBackStack()
                             } catch (e: Exception) {
@@ -121,8 +122,10 @@ fun LoginScreen(
                 LoginScreenPages.REGISTER -> RegisterPage(
                     phoneValue = phoneValue,
                     passwordValue = passwordValue,
+                    confirmPasswordValue = confirmPasswordValue,
                     onPhoneValueChange =  { it1 -> phoneValue = it1 },
                     onPasswordValueChange =  { it1 -> passwordValue = it1 },
+                    onConfirmPasswordValueChange =  { it1 -> confirmPasswordValue = it1 },
                     isErrorValue = isError,
                 )
             }

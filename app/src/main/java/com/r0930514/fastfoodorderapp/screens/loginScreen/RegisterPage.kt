@@ -11,10 +11,6 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -30,12 +26,14 @@ import com.r0930514.fastfoodorderapp.screens.components.EditText
 fun RegisterPage(
     phoneValue: String = "TEST",
     passwordValue: String = "TEST",
+    confirmPasswordValue: String = "TEST",
     onPhoneValueChange: (String) -> Unit = {},
     onPasswordValueChange: (String) -> Unit = {},
+    onConfirmPasswordValueChange: (String) -> Unit = {},
     isErrorValue: Boolean = false,
     modifier: Modifier = Modifier,
+
 ) {
-    var confirmPasswordValue by rememberSaveable { mutableStateOf("") }
     Column (
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -71,7 +69,7 @@ fun RegisterPage(
             )
             EditText(
                 value = confirmPasswordValue,
-                onValueChange = { confirmPasswordValue = it },
+                onValueChange = onConfirmPasswordValueChange,
                 keyboardType = KeyboardType.Password,
                 label = "再次輸入密碼",
                 isError = isErrorValue,

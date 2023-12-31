@@ -65,7 +65,10 @@ class UserStateViewModel(private val dataStore: DataStore<Preferences>): ViewMod
         result.token?.let { saveUser(result.userPhone, it) }
 
     }
-    suspend fun register(userPhone: String, password: String){
+    suspend fun register(userPhone: String, password: String, confirmPassword: String){
+        if (password != confirmPassword) {
+            throw Exception("密碼不一致")
+        }
         loginRepository.register(userPhone, password)
     }
     suspend fun logout(){
