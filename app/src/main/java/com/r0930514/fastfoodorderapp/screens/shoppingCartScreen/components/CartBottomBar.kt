@@ -26,7 +26,9 @@ import com.r0930514.fastfoodorderapp.R
 
 @Composable
 @Preview
-fun CartBottomBar(){
+fun CartBottomBar(
+    totalPrice: Int = 0,
+){
     BottomAppBar(){
         Row(
             modifier = Modifier
@@ -54,7 +56,7 @@ fun CartBottomBar(){
                 verticalAlignment = Alignment.CenterVertically,
             ){
                 Text(
-                    text = "$ 150",
+                    text = "$ $totalPrice",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Medium,
                 )

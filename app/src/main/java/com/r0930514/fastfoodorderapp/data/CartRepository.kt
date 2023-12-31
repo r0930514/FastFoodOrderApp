@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 
 class CartRepository(private val cartDao: CartDao) {
     val cartList = cartDao.getAll()
+    val totalPrice = cartDao.getTotalPrice()
     suspend fun insert(cartEntity: CartEntity) {
         cartDao.insert(cartEntity)
     }
@@ -24,5 +25,8 @@ class CartRepository(private val cartDao: CartDao) {
 
     suspend fun delete(cartEntity: CartEntity){
         cartDao.delete(cartEntity)
+    }
+    suspend fun update(cartEntity: CartEntity){
+        cartDao.update(cartEntity)
     }
 }

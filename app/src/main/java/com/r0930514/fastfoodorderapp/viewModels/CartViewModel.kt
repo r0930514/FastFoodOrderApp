@@ -17,8 +17,11 @@ import kotlinx.coroutines.launch
 class CartViewModel(private val cartRepository: CartRepository): ViewModel() {
     private val _cartList = MutableStateFlow<List<CartEntity>>(emptyList())
     val cartList: MutableStateFlow<List<CartEntity>> = _cartList
+    private val _totalPrice = MutableStateFlow(0)
+    val totalPrice: MutableStateFlow<Int> = _totalPrice
     init {
         fetchCartList()
+        fetchTotalPrice()
     }
     private fun fetchCartList(){
         viewModelScope.launch {
@@ -28,6 +31,17 @@ class CartViewModel(private val cartRepository: CartRepository): ViewModel() {
                 }
             }catch (e: Exception){
                 Log.e("CartViewModel", "fetchCartList: ${e.message}")
+            }
+        }
+    }
+    private fun fetchTotalPrice(){
+        viewModelScope.launch {
+            try{
+                cartRepository.totalPrice.collect {
+                    _totalPrice.value = it
+                }
+            }catch (e: Exception){
+                Log.e("CartViewModel", "fetchTotalPrice: ${e.message}")
             }
         }
     }
@@ -47,6 +61,16 @@ class CartViewModel(private val cartRepository: CartRepository): ViewModel() {
                 cartRepository.delete(cartEntity)
             }catch (e: Exception){
                 Log.e("CartViewModel", "delete: ${e.message}")
+            }
+        }
+    }
+
+    fun update(cartEntity: CartEntity){
+        viewModelScope.launch {
+            try{
+                cartRepository.update(cartEntity)
+            }catch (e: Exception){
+                Log.e("CartViewModel", "update: ${e.message}")
             }
         }
     }
