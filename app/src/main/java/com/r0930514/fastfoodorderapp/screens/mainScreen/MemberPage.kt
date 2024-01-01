@@ -10,7 +10,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -43,7 +42,6 @@ fun MemberPage(
         MemberPageListItem.ChangePassword,
         MemberPageListItem.ChangePhone,
         MemberPageListItem.NotificationSetting,
-        MemberPageListItem.Test,
     )
     Column {
         CommonAppBar("會員")
@@ -60,15 +58,24 @@ fun MemberPage(
             LazyColumn(content = {
                 item{
                     listItems.forEach{
-                        MemberPageList(it, navHostController)
+                        MemberPageList(
+                            it,
+                            modifier = Modifier.clickable {
+                                if (it.route != "") navHostController.navigate(it.route)
+                            }
+                        )
                         Divider()
                     }
                 }
                 if (username != ""){
                     item {
-                        TextButton(onClick = { coroutineScope.launch { viewModel.logout() } }) {
-                            Text(text = "登出")
-                        }
+                        MemberPageList(
+                            MemberPageListItem.Logout,
+                            modifier = Modifier.clickable {
+                                coroutineScope.launch { viewModel.logout() }
+                            }
+                        )
+                        Divider()
                     }
                 }
             })
@@ -79,22 +86,18 @@ fun MemberPage(
 
 @Composable
 private fun MemberPageList(
-    it: MemberPageListItem,
-    navHostController: NavHostController
+    item: MemberPageListItem,
+    modifier: Modifier = Modifier
 ) {
     ListItem(
-        headlineContent = { Text(it.title) },
+        headlineContent = { Text(item.title) },
         leadingContent = {
             Icon(
-                imageVector = ImageVector.vectorResource(it.icon),
+                imageVector = ImageVector.vectorResource(item.icon),
                 contentDescription = "null",
             )
         },
-        modifier = Modifier.clickable {
-            if (it.route != "") {
-                navHostController.navigate(it.route)
-            }
-        }
+        modifier = modifier
     )
 }
 
