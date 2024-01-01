@@ -7,8 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.r0930514.fastfoodorderapp.screens.CartCompleted
-import com.r0930514.fastfoodorderapp.screens.PaymentCompleted
+import com.r0930514.fastfoodorderapp.screens.CartCompletedScreen
+import com.r0930514.fastfoodorderapp.screens.PaymentCompletedScreen
 import com.r0930514.fastfoodorderapp.screens.PaymentScreen
 import com.r0930514.fastfoodorderapp.screens.TestScreen
 import com.r0930514.fastfoodorderapp.screens.detailScreen.OrderDetailScreen
@@ -52,7 +52,7 @@ fun MainNav(){
             LoginScreen(navController)
         }
         composable("PaymentCompleted"){
-            PaymentCompleted(navController)
+            PaymentCompletedScreen(navController)
         }
         composable("OrderDetail"){
             OrderDetailScreen(navController)
@@ -67,7 +67,7 @@ fun MainNav(){
         }
         //選擇用餐方式
         composable("OrderType"){
-            CartCompleted(navController)
+            CartCompletedScreen(navController)
         }
         //前往付款
         composable("Payment"){
@@ -75,7 +75,7 @@ fun MainNav(){
         }
         //付款完成
         composable("PaymentCompleted"){
-            PaymentCompleted(navController)
+            PaymentCompletedScreen(navController)
         }
 
 

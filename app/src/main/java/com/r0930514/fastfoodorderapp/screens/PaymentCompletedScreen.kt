@@ -2,6 +2,7 @@ package com.r0930514.fastfoodorderapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -37,7 +38,7 @@ import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun PaymentCompleted(navHostController: NavHostController = rememberNavController()) {
+fun PaymentCompletedScreen(navHostController: NavHostController = rememberNavController()) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -102,6 +103,7 @@ fun PaymentCompleted(navHostController: NavHostController = rememberNavControlle
                         modifier = Modifier.padding(4.dp)
                     )
                 }
+                Spacer(modifier = Modifier.size(60.dp))
                 LazyColumn(modifier = Modifier.padding(16.dp), content = {
                     item {
                         PaymentPageList(
