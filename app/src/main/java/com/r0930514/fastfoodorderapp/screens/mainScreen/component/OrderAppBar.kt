@@ -3,7 +3,6 @@ package com.r0930514.fastfoodorderapp.screens.mainScreen.component
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,9 +24,6 @@ fun OrderAppBar(){
         title = { Text(text = "選擇餐點", modifier = Modifier.padding(12.dp)) },
         colors = TopDefaultAppBarColor(),
         actions = {
-            IconButton(onClick = { }, colors = iconColor) {
-                Icon(imageVector = Icons.Rounded.Favorite, contentDescription = "Search")
-            }
             IconButton(onClick = { }, colors = iconColor) {
                 Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
             }
