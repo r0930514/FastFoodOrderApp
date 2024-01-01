@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.Flow
 interface CartDao {
     @Query("SELECT * FROM cart_table")
     fun getAll(): Flow<List<CartEntity>>
+
+    //getOrderList
+    @Query("SELECT * FROM cart_order_view")
+    fun getOrderList(): Flow<List<CartOrderView>>
+
     @Insert
     suspend fun insert(cartEntity: CartEntity)
     @Query("SELECT * FROM cart_table WHERE id = :orderDetailID")

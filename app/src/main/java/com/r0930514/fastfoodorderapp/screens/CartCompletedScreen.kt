@@ -22,22 +22,31 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.R
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
+import com.r0930514.fastfoodorderapp.viewModels.CartCompletedViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun CartCompleted(navHostController: NavHostController = rememberNavController()) {
+fun CartCompletedScreen(
+    navHostController: NavHostController = rememberNavController(),
+    cartCompletedViewModel: CartCompletedViewModel = viewModel(factory = CartCompletedViewModel.Factory)
+) {
+    val orderList by cartCompletedViewModel.orderList.collectAsState()
+
     val orderTypes = listOf("外帶", "內用")
     val orderTypeIcons = listOf(
         ImageVector.Companion.vectorResource(R.drawable.local_dining),
@@ -99,7 +108,8 @@ fun CartCompleted(navHostController: NavHostController = rememberNavController()
                 }
             }
             HorizontalPager(state = pagerState) {
-                Text(text = orderTypes[pagerState.currentPage], Modifier.fillMaxSize())
+                //Text(text = orderTypes[pagerState.currentPage], Modifier.fillMaxSize())
+                Text(text = orderList.toString(), Modifier.fillMaxSize())
             }
         }
     }
