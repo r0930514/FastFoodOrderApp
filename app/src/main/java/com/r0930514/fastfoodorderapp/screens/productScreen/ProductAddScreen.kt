@@ -36,7 +36,7 @@ fun ProductAddScreen(
     Scaffold (
         topBar = {
             CustomAsyncImage(
-                url = "",
+                url = "https://api.r0930514.work/debug/static/image/food/${productID}.jpg",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(320.dp),

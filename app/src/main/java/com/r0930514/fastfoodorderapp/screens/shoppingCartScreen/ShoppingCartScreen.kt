@@ -44,7 +44,8 @@ fun ShoppingCart(
                         price = item.productPrice*item.productCount,
                         onClick = {
                             navHostController.navigate("ProductEdit/${item.id}")
-                        }
+                        },
+                        productID = item.productID,
                     )
                 }
             })

@@ -1,7 +1,6 @@
 package com.r0930514.fastfoodorderapp.screens.shoppingCartScreen.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,12 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.r0930514.fastfoodorderapp.R
+import com.r0930514.fastfoodorderapp.screens.components.CustomAsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,6 +34,7 @@ fun CartCard(
     description: String = "-",
     painter: Painter = painterResource(id = R.drawable.unknow),
     price: Int = 0,
+    productID: String = "",
     onClick: () -> Unit = {}
 ){
     OutlinedCard(
@@ -46,12 +46,10 @@ fun CartCard(
         onClick = onClick
     ) {
         Row (modifier = Modifier.fillMaxWidth()){
-            Image(
-                painter = painterResource(id = R.drawable.unknow),
-                contentDescription = null,
-                modifier = Modifier.size(80.dp),
-                contentScale = ContentScale.Crop
-
+            CustomAsyncImage(
+                url = "https://api.r0930514.work/debug/static/image/food/${productID}.jpg",
+                modifier = Modifier
+                    .size(80.dp),
             )
             Row(
                 modifier = Modifier
