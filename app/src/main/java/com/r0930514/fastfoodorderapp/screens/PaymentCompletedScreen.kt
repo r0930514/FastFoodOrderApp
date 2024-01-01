@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -48,7 +48,7 @@ fun PaymentCompletedScreen(navHostController: NavHostController = rememberNavCon
                     IconButton(onClick = {
                         navHostController.popBackStack()
                     }) {
-                        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
+                        Icon(imageVector = Icons.Filled.Close, contentDescription = null)
                     }
                 }
             )
@@ -63,9 +63,7 @@ fun PaymentCompletedScreen(navHostController: NavHostController = rememberNavCon
                     Text(text = "結束")
                 },
                 onClick = {
-                    navHostController.navigate("BottomNav") {
-                        popUpTo("BottomNav") { inclusive = true }
-                    }
+                    navHostController.popBackStack()
                 }
             )
         }

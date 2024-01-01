@@ -85,14 +85,22 @@ fun CartCompletedScreen(
                     if (pagerState.currentPage == 0){
                         tableID = ""
                         navHostController.navigate(
-                            "Payment/{$tableID}"
-                        )
+                            route ="Payment/{$tableID}",
+                        ){
+                            popUpTo("BottomNav"){
+                                inclusive = false
+                            }
+                        }
 
                     }else {
                         if (tableID.isNotEmpty()) {
                             navHostController.navigate(
                                 "Payment/{$tableID}"
-                            )
+                            ){
+                                popUpTo("BottomNav"){
+                                    inclusive = false
+                                }
+                            }
                         }else{
                             isTableIDError = true
                         }
