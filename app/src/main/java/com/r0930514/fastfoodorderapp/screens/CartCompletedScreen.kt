@@ -2,13 +2,16 @@ package com.r0930514.fastfoodorderapp.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -24,7 +27,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -34,6 +41,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.R
+import com.r0930514.fastfoodorderapp.screens.components.EditText
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 import com.r0930514.fastfoodorderapp.viewModels.CartCompletedViewModel
 import kotlinx.coroutines.launch
@@ -46,7 +54,8 @@ fun CartCompletedScreen(
     cartCompletedViewModel: CartCompletedViewModel = viewModel(factory = CartCompletedViewModel.Factory)
 ) {
     val orderList by cartCompletedViewModel.orderList.collectAsState()
-
+    var tableID by rememberSaveable { mutableStateOf("") }
+    var isTableIDError by rememberSaveable { mutableStateOf(false) }
     val orderTypes = listOf("外帶", "內用")
     val orderTypeIcons = listOf(
         ImageVector.Companion.vectorResource(R.drawable.local_dining),
@@ -73,9 +82,21 @@ fun CartCompletedScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = {
-                    navHostController.navigate(
-                        "Payment",
-                    )
+                    if (pagerState.currentPage == 0){
+                        tableID = ""
+                        navHostController.navigate(
+                            "Payment/{$tableID}"
+                        )
+
+                    }else {
+                        if (tableID.isNotEmpty()) {
+                            navHostController.navigate(
+                                "Payment/{$tableID}"
+                            )
+                        }else{
+                            isTableIDError = true
+                        }
+                    }
                 },
                 icon = {
                     Icon(
@@ -107,9 +128,43 @@ fun CartCompletedScreen(
                     )
                 }
             }
-            HorizontalPager(state = pagerState) {
-                //Text(text = orderTypes[pagerState.currentPage], Modifier.fillMaxSize())
-                Text(text = orderList.toString(), Modifier.fillMaxSize())
+            HorizontalPager(state = pagerState) { page ->
+                Column (
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    when(page){
+                        1 -> {
+                            Column (
+                                Modifier.fillMaxSize()
+                            ){
+
+                                EditText(
+                                    value = tableID,
+                                    onValueChange = { i -> tableID = i },
+                                    label = "桌號",
+                                    supportingText = "請輸入桌號，稍候將會有服務人員為您送餐",
+                                    leadingIcon = Icons.Filled.LocationOn,
+                                    isError = isTableIDError,
+                                )
+                            }
+
+                        }
+                        0 -> {
+                            Icon(
+                                imageVector = ImageVector.Companion.vectorResource(R.drawable.fastfood),
+                                contentDescription = null,
+                                modifier = Modifier.size(64.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.size(16.dp))
+                            Text(text = "請點擊結帳按鈕，選擇付款方式")
+                        }
+                    }
+                }
+
             }
         }
     }
