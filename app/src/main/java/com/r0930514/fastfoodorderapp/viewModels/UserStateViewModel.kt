@@ -1,39 +1,44 @@
 package com.r0930514.fastfoodorderapp.viewModels
 
+import android.app.Application
 import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.r0930514.fastfoodorderapp.data.LoginRepository
+import com.r0930514.fastfoodorderapp.data.UserStateRepository
+import com.r0930514.fastfoodorderapp.dataStore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 
-class UserStateViewModel(private val dataStore: DataStore<Preferences>): ViewModel(){
-    private val loginRepository = LoginRepository()
-    private val _userPhoneKey = stringPreferencesKey("username")
-    private val _userTokenKey = stringPreferencesKey("token")
+class UserStateViewModel(
+    private val userStateRepository: UserStateRepository,
+    private val loginRepository: LoginRepository
+    ): ViewModel()
+{
+
     private val _userPhone = MutableStateFlow("")
     private val _userToken = MutableStateFlow("")
     val userPhone: StateFlow<String> get() = _userPhone
     val userToken: StateFlow<String> get() = _userToken
-    private suspend fun saveUser(userName: String, token: String = ""){
+    init {
+        getUserToken()
+        getUserPhone()
+    }
+
+    private fun saveUser(userName: String, token: String = ""){
         Log.e("LoginRepository", token)
-        dataStore.edit { preferences ->
-            preferences[_userPhoneKey] = userName
-            preferences[_userTokenKey] = token
+        viewModelScope.launch {
+            userStateRepository.saveUser(userName, token)
         }
     }
     private fun getUserPhone(){
         viewModelScope.launch {
-            dataStore.data.map { preferences ->
-                preferences[_userPhoneKey] ?: ""
-            }.collect {
+            userStateRepository.getUserPhone().collect {
                 _userPhone.value = it
             }
         }
@@ -41,12 +46,12 @@ class UserStateViewModel(private val dataStore: DataStore<Preferences>): ViewMod
 
     private fun getUserToken(){
         viewModelScope.launch{
-            dataStore.data.map { preferences ->
-                preferences[_userTokenKey] ?: ""
-            }.collect {
+            userStateRepository.getUserToken().collect {
                 _userToken.value = it
+                checkTokenValid(it)
             }
         }
+
     }
     private fun checkTokenValid(token: String) {
         viewModelScope.launch {
@@ -60,10 +65,11 @@ class UserStateViewModel(private val dataStore: DataStore<Preferences>): ViewMod
     suspend fun checkUserExist(phone: String) {
         loginRepository.isPhoneExist(phone)
     }
+
+    //登入與註冊、登出
     suspend fun login(phone: String, password: String){
         val result = loginRepository.login(phone, password)
         result.token?.let { saveUser(result.userPhone, it) }
-
     }
     suspend fun register(userPhone: String, password: String, confirmPassword: String){
         if (password != confirmPassword) {
@@ -71,11 +77,17 @@ class UserStateViewModel(private val dataStore: DataStore<Preferences>): ViewMod
         }
         loginRepository.register(userPhone, password)
     }
-    suspend fun logout(){
+    fun logout(){
         saveUser("", "")
     }
-    init {
-        getUserToken()
-        getUserPhone()
+
+    companion object{
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val appContext = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as Application
+                val loginRepository = LoginRepository()
+                UserStateViewModel(UserStateRepository(appContext.dataStore), loginRepository)
+            }
+        }
     }
 }
