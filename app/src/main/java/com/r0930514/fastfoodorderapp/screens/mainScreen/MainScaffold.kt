@@ -17,15 +17,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.R
-import com.r0930514.fastfoodorderapp.dataStore
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.CNavBar
 import com.r0930514.fastfoodorderapp.viewModels.UserStateViewModel
 
 @Composable
 fun MainScaffold(navController: NavHostController) {
-    val userStateViewModel = UserStateViewModel(navController.context.dataStore)
+    val userStateViewModel: UserStateViewModel = viewModel(factory = UserStateViewModel.Factory)
     val username by userStateViewModel.userPhone.collectAsState()
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
     val scrollState = rememberLazyListState()

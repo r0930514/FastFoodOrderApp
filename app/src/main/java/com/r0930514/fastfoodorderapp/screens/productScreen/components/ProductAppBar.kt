@@ -24,7 +24,9 @@ fun ProductEditAppBar(
         title = { Text(text = "") },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.Transparent,
-            titleContentColor = Color.Black,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White,
+            actionIconContentColor = Color.White
         ),
         navigationIcon = {
             IconButton(

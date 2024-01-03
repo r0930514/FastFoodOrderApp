@@ -19,9 +19,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.r0930514.fastfoodorderapp.dataStore
 import com.r0930514.fastfoodorderapp.screens.components.LoadingFloatBtn
 import com.r0930514.fastfoodorderapp.screens.loginScreen.componemts.LoginScreenTopBar
 import com.r0930514.fastfoodorderapp.viewModels.UserStateViewModel
@@ -29,8 +29,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
-        navHostController: NavHostController,
-        viewModel: UserStateViewModel = UserStateViewModel(navHostController.context.dataStore),
+    navHostController: NavHostController,
+    viewModel: UserStateViewModel = viewModel(factory = UserStateViewModel.Factory)
 ){
 
     val iconColor : IconButtonColors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)

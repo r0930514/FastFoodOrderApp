@@ -1,5 +1,6 @@
 package com.r0930514.fastfoodorderapp.screens.mainScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.r0930514.fastfoodorderapp.dataStore
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.CommonAppBar
 import com.r0930514.fastfoodorderapp.screens.mainScreen.component.MemberPageCard
 import com.r0930514.fastfoodorderapp.screens.mainScreen.items.MemberPageListItem
@@ -31,10 +32,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun MemberPage(
     navHostController: NavHostController,
-    viewModel: UserStateViewModel = UserStateViewModel(navHostController.context.dataStore),
+    viewModel: UserStateViewModel = viewModel(factory = UserStateViewModel.Factory)
 ){
     val username by viewModel.userPhone.collectAsState()
-    val userToken by viewModel.userToken.collectAsState()
 
     val coroutineScope = rememberCoroutineScope()
     val listItems = listOf(
@@ -72,6 +72,7 @@ fun MemberPage(
                         MemberPageList(
                             MemberPageListItem.Logout,
                             modifier = Modifier.clickable {
+                                Toast.makeText(navHostController.context, "登出成功", Toast.LENGTH_SHORT).show()
                                 coroutineScope.launch { viewModel.logout() }
                             }
                         )

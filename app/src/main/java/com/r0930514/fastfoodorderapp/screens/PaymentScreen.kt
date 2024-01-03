@@ -1,6 +1,5 @@
 package com.r0930514.fastfoodorderapp.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +32,6 @@ fun PaymentScreen(
     tableID: String = ""
 ) {
     var isPay by rememberSaveable { mutableStateOf(false) }
-    Log.e("PaymentScreen", "tableID: $tableID")
 
     LaunchedEffect(key1 = isPay, block = {
         delay(2000)
@@ -49,11 +47,6 @@ fun PaymentScreen(
             CenterAlignedTopAppBar(
                 title = { Text(text = "付款", modifier = Modifier.padding(12.dp)) },
                 colors = TopDefaultAppBarColor(),
-//                navigationIcon = {
-//                    IconButton(onClick = { navHostController.popBackStack() } ){
-//                        Icon(imageVector = Icons.Filled.Close, contentDescription = null)
-//                    }
-//                }
             )
         },
     ){

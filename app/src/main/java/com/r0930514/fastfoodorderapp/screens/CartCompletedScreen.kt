@@ -10,11 +10,9 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
@@ -42,6 +40,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.r0930514.fastfoodorderapp.R
 import com.r0930514.fastfoodorderapp.screens.components.EditText
+import com.r0930514.fastfoodorderapp.screens.components.LoadingExtendFloatBtn
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 import com.r0930514.fastfoodorderapp.viewModels.CartCompletedViewModel
 import kotlinx.coroutines.launch
@@ -57,6 +56,8 @@ fun CartCompletedScreen(
     var tableID by rememberSaveable { mutableStateOf("") }
     var isTableIDError by rememberSaveable { mutableStateOf(false) }
     val orderTypes = listOf("外帶", "內用")
+    val orderApiTypes = listOf("Takeout", "Dine_In")
+    val coroutineScope = rememberCoroutineScope()
     val orderTypeIcons = listOf(
         ImageVector.Companion.vectorResource(R.drawable.local_dining),
         ImageVector.Companion.vectorResource(R.drawable.takeout_dining)
@@ -65,6 +66,9 @@ fun CartCompletedScreen(
         initialPage = 0,
         pageCount = { orderTypes.size }
     )
+    var isLoading by rememberSaveable {
+        mutableStateOf(false)
+    }
     val iconColor : IconButtonColors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
     val scope = rememberCoroutineScope()
     Scaffold (
@@ -80,40 +84,39 @@ fun CartCompletedScreen(
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = {
-                    if (pagerState.currentPage == 0){
-                        tableID = ""
-                        navHostController.navigate(
-                            route ="Payment/{$tableID}",
-                        ){
-                            popUpTo("BottomNav"){
-                                inclusive = false
-                            }
-                        }
-
-                    }else {
-                        if (tableID.isNotEmpty()) {
-                            navHostController.navigate(
-                                "Payment/{$tableID}"
-                            ){
-                                popUpTo("BottomNav"){
-                                    inclusive = false
-                                }
-                            }
-                        }else{
-                            isTableIDError = true
+            LoadingExtendFloatBtn(
+                isLoading = isLoading,
+                title = "結帳"
+            ){
+                //在外帶頁面
+                if (pagerState.currentPage == 0){
+                    tableID = ""
+                }
+                //在內用頁面 且 桌號為空
+                if (pagerState.currentPage == 1 && tableID.isEmpty()) {
+                    //報錯
+                    isTableIDError = true
+                    return@LoadingExtendFloatBtn
+                }
+                coroutineScope.launch {
+                    isLoading = true
+                    cartCompletedViewModel.sendOrder(
+                        orderList = orderList,
+                        orderType = orderApiTypes[pagerState.currentPage],
+                        tableID = tableID
+                    )
+                    isLoading = false
+                    //跳轉到模擬付款完成頁面
+                    navHostController.navigate(
+                        "Payment/{$tableID}"
+                    ){
+                        popUpTo("BottomNav"){
+                            inclusive = false
                         }
                     }
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowForward,
-                        contentDescription = null
-                    )
-                },
-                text = { Text(text = "結帳") }
-            )
+                }
+
+            }
         }
     ){
         Column (Modifier.padding(it)){

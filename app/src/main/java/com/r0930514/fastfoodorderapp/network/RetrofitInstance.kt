@@ -24,6 +24,8 @@ object RetrofitInstance {
     val loginApiService: LoginApiService by lazy {
         api.create(LoginApiService::class.java)
     }
-
+    val orderApiService: OrderApiService by lazy {
+        api.create(OrderApiService::class.java)
+    }
 
 }
