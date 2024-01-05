@@ -50,11 +50,7 @@ class CartCompletedViewModel(
         }
     }
     suspend fun sendOrder(orderList: List<CartOrderView>, orderType: String, tableID: String){
-        try {
-            cartRepository.sendOrder(token.value, orderList, orderType, tableID)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        cartRepository.sendOrder(token.value, orderList, orderType, tableID)
     }
 
     companion object{

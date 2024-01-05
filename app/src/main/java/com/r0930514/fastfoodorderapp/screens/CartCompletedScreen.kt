@@ -1,5 +1,6 @@
 package com.r0930514.fastfoodorderapp.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,8 +16,6 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
@@ -55,13 +54,16 @@ fun CartCompletedScreen(
     val orderList by cartCompletedViewModel.orderList.collectAsState()
     var tableID by rememberSaveable { mutableStateOf("") }
     var isTableIDError by rememberSaveable { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+
+
     val orderTypes = listOf("外帶", "內用")
     val orderApiTypes = listOf("Takeout", "Dine_In")
-    val coroutineScope = rememberCoroutineScope()
     val orderTypeIcons = listOf(
         ImageVector.Companion.vectorResource(R.drawable.local_dining),
         ImageVector.Companion.vectorResource(R.drawable.takeout_dining)
     )
+
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { orderTypes.size }
@@ -69,8 +71,6 @@ fun CartCompletedScreen(
     var isLoading by rememberSaveable {
         mutableStateOf(false)
     }
-    val iconColor : IconButtonColors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
-    val scope = rememberCoroutineScope()
     Scaffold (
         topBar = {
             CenterAlignedTopAppBar(
@@ -100,11 +100,21 @@ fun CartCompletedScreen(
                 }
                 coroutineScope.launch {
                     isLoading = true
-                    cartCompletedViewModel.sendOrder(
-                        orderList = orderList,
-                        orderType = orderApiTypes[pagerState.currentPage],
-                        tableID = tableID
-                    )
+                    try{
+                        cartCompletedViewModel.sendOrder(
+                            orderList = orderList,
+                            orderType = orderApiTypes[pagerState.currentPage],
+                            tableID = tableID
+                        )
+                    }catch (e: Exception){
+                        Toast.makeText(
+                            navHostController.context,
+                            "發生錯誤，請稍候再試",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        isLoading = false
+                        return@launch
+                    }
                     isLoading = false
                     //跳轉到模擬付款完成頁面
                     navHostController.navigate(
@@ -125,7 +135,7 @@ fun CartCompletedScreen(
                     Tab(
                         selected = (index == pagerState.currentPage),
                         onClick = {
-                            scope.launch{ pagerState.scrollToPage(index) }
+                            coroutineScope.launch{ pagerState.scrollToPage(index) }
                         },
                         text = {
                             Text(text = item)
@@ -180,3 +190,4 @@ fun CartCompletedScreen(
         }
     }
 }
+
