@@ -8,7 +8,7 @@ data class OrdersModel(
     @SerializedName("member_id")
     val memberID: Int,
     @SerializedName("payment_id")
-    val paymentID: Int,
+    val paymentID: Int?,
     @SerializedName("order_date")
     val orderDate: String,
     @SerializedName("order_type")
@@ -30,7 +30,7 @@ data class OrderDetailModel(
     @SerializedName("product_count")
     val productCount: Int,
     @SerializedName("product_price")
-    val productPrice: Int,
+    val productPrice: String,
     @SerializedName("total")
-    val total: Int,
+    val total: String,
 )

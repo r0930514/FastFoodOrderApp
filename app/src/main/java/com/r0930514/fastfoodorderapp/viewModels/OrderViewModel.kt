@@ -17,27 +17,27 @@ class OrdersViewModel(
     private val ordersRepository: OrdersRepository,
     private val userStateRepository: UserStateRepository
 ): ViewModel() {
-    private val _token = MutableStateFlow<String>("")
+    private val _token = MutableStateFlow("")
     private val token: MutableStateFlow<String> = _token
 
-    private val _orderList = MutableStateFlow<List<OrdersModel>>(emptyList())
+    private val _orderList = MutableStateFlow(emptyList<OrdersModel>())
     val orderList: MutableStateFlow<List<OrdersModel>> = _orderList
     init {
         fetchToken()
-        fetchOrderList()
     }
     private fun fetchToken(){
         viewModelScope.launch{
             userStateRepository.getUserToken().collect{
                 _token.value = it
+                if (it.isNotEmpty()) fetchOrderList()
             }
         }
     }
     private fun fetchOrderList(){
         viewModelScope.launch {
             try {
-                ordersRepository.getOrders(token.value).collect {
-                    _orderList.value = listOf(it)
+                ordersRepository.getOrders(token.value).collect { list ->
+                    list.also { _orderList.value = it }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

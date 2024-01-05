@@ -17,5 +17,5 @@ interface OrderApiService {
     @GET("/debug/order")
     suspend fun getOrder(
         @Header("Authorization") token: String,
-    ): Response<OrdersModel>
+    ): Response<List<OrdersModel>>
 }

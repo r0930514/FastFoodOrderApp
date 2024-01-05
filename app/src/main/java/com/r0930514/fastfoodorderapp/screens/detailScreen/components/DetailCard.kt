@@ -29,10 +29,10 @@ import com.r0930514.fastfoodorderapp.R
 @Composable
 @Preview(showBackground = true)
 fun DetailCard(
-    title: String = "2023N2301 內用",
-    date: String = "1911-10-10 10:10",
+    title: String = "日期與類型",
+    description: String = "項目計數",
     painter: Painter = painterResource(id = R.drawable.unknow),
-    price: Int = 0,
+    price: String = "0",
     onClick: () -> Unit = {}
 ){
     OutlinedCard(
@@ -55,12 +55,14 @@ fun DetailCard(
                     verticalArrangement = Arrangement.SpaceBetween
                 ){
                     Text(text = title)
-                    Text(text = date)
+                    Text(text = description)
                 }
                 Row {
                     Text(
                         text = "$${price}",
-                        modifier = Modifier.fillMaxHeight().wrapContentSize(),
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .wrapContentSize(),
                     )
                     Spacer(modifier = Modifier.size(16.dp))
                     Icon(
@@ -72,6 +74,5 @@ fun DetailCard(
             }
 
         }
-
     }
 }

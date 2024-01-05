@@ -1,6 +1,8 @@
 package com.r0930514.fastfoodorderapp.screens.detailScreen
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,13 +18,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.r0930514.fastfoodorderapp.screens.detailScreen.components.DetailCard
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
+import com.r0930514.fastfoodorderapp.util.convertDate
 import com.r0930514.fastfoodorderapp.viewModels.OrdersViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderDetailScreen(
@@ -30,7 +37,7 @@ fun OrderDetailScreen(
     ordersViewModel: OrdersViewModel = viewModel(factory = OrdersViewModel.Factory)
 ){
     val ordersList by ordersViewModel.orderList.collectAsState()
-
+    var clickItem by rememberSaveable { mutableIntStateOf(0) }
     Scaffold (
         topBar = {
             CenterAlignedTopAppBar(
@@ -53,10 +60,11 @@ fun OrderDetailScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 content = {
-                    items(25){
+                    items(ordersList.size){i ->
                         DetailCard(
-                            title = "2023N2301 內用",
-                            price = it*50
+                            title = convertDate(ordersList[i].orderDate)!! + " " +ordersList[i].orderType,
+                            description = "${ordersList[i].orderDetail.size}項商品",
+                            price = ordersList[i].orderDetail.sumOf { item-> item.total.substring(1).toDouble().toInt() }.toString(),
                         )
                     }
                 })
