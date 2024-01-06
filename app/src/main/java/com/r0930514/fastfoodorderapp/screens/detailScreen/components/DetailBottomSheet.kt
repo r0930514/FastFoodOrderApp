@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
@@ -29,18 +30,38 @@ fun DetailBottomSheet(
         ){
             orderData?.let {
                 LazyColumn(content = {
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            Text(text = "訂單編號", style = MaterialTheme.typography.headlineMedium)
+                            Text(
+                                text =  orderData.orderType +" "+ orderData.orderID.toString(),
+                                style = MaterialTheme.typography.headlineMedium
+                            )
+                        }
+                        Divider(Modifier.padding(vertical = 8.dp))
+                    }
                     items(orderData.orderDetail.size) { index ->
                         Row (
                             //左右排列 modifier
-                            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ){
-                            Row{
-                                Text(text = orderData.orderDetail[index].productName)
-                                Text(text = " $" + orderData.orderDetail[index].productPrice.substring(1).toDouble().toInt())
-                                Text(text = " *" + orderData.orderDetail[index].productCount.toString())
+                            Column {
+                                Text(
+                                    text =
+                                        orderData.orderDetail[index].productName +
+                                        " $" + orderData.orderDetail[index].productPrice +
+                                        " *" + orderData.orderDetail[index].productCount.toString(),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Text(text = orderData.orderDetail[index].specificationName, style = MaterialTheme.typography.bodyMedium)
                             }
-                            Text(text = orderData.orderDetail[index].total)
+                            Text(text = "$" + orderData.orderDetail[index].total.toString())
 
                         }
 
@@ -48,11 +69,13 @@ fun DetailBottomSheet(
                 })
                 Divider(Modifier.padding(vertical = 8.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     Text(text = "總計")
-                    Text(text = "$" + orderData.orderDetail.sumOf { item-> item.total.substring(1).toDouble().toInt() }.toString())
+                    Text(text = "$" + orderData.orderDetail.sumOf { item-> item.total }.toString())
                 }
             }
         }

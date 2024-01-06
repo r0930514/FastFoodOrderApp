@@ -1,6 +1,7 @@
 package com.r0930514.fastfoodorderapp.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -107,19 +109,24 @@ fun PaymentCompletedScreen(navHostController: NavHostController = rememberNavCon
                         PaymentPageList(
                             paymentPageListItem = PaymentPageListItem.WaitingTime,
                             supportText = "約 10 分鐘",
-                            navHostController = navHostController
                         )
                         Divider()
                         PaymentPageList(
                             paymentPageListItem = PaymentPageListItem.OrderType,
                             supportText = "外帶",
-                            navHostController = navHostController
                         )
                         Divider()
                         PaymentPageList(
                             paymentPageListItem = PaymentPageListItem.OrderDetail,
                             supportText = "共 1 項",
-                            navHostController = navHostController
+                            onClick = {
+                                navHostController.navigate("OrderDetail"){
+                                    popUpTo("BottomNav"){
+                                        inclusive = false
+                                    }
+                                }
+                            },
+                            isTrail = true
                         )
                     }
                 })
@@ -134,7 +141,8 @@ fun PaymentCompletedScreen(navHostController: NavHostController = rememberNavCon
 private fun PaymentPageList(
     paymentPageListItem: PaymentPageListItem,
     supportText: String,
-    navHostController: NavHostController
+    onClick: () -> Unit = {},
+    isTrail: Boolean = false
 ) {
     ListItem(
         headlineContent = { Text(paymentPageListItem.title) },
@@ -145,6 +153,15 @@ private fun PaymentPageList(
             )
         },
         supportingContent = { Text(text = supportText) },
+        modifier = Modifier.clickable(onClick = onClick),
+        trailingContent = {
+            if (isTrail) {
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowRight,
+                    contentDescription = "null",
+                )
+            }
+        }
     )
 }
 

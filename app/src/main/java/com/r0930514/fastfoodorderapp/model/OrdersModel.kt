@@ -13,6 +13,8 @@ data class OrdersModel(
     val orderDate: String,
     @SerializedName("order_type")
     val orderType: String,
+    @SerializedName("order_status")
+    val orderStatus: Boolean,
     @SerializedName("order_detail")
     val orderDetail: List<OrderDetailModel>,
 )
@@ -30,7 +32,7 @@ data class OrderDetailModel(
     @SerializedName("product_count")
     val productCount: Int,
     @SerializedName("product_price")
-    val productPrice: String,
+    val productPrice: Int,
     @SerializedName("total")
-    val total: String,
+    val total: Int,
 )

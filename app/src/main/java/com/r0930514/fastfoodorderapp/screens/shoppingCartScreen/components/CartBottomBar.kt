@@ -47,7 +47,7 @@ fun CartBottomBar(
                     modifier = Modifier.fillMaxHeight()
                 )
                 Text(
-                    text = "35 分",
+                    text = "",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Medium,
                 )

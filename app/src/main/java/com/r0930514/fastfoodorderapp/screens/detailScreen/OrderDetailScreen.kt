@@ -1,8 +1,5 @@
 package com.r0930514.fastfoodorderapp.screens.detailScreen
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -33,7 +30,6 @@ import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 import com.r0930514.fastfoodorderapp.util.convertDate
 import com.r0930514.fastfoodorderapp.viewModels.OrdersViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderDetailScreen(
@@ -54,8 +50,7 @@ fun OrderDetailScreen(
                 navigationIcon = {
                     IconButton(
                         onClick = {
-                            Log.e("OrderDetailScreen", ordersList.toString())
-                            //navHostController.popBackStack()
+                            navHostController.popBackStack()
                         }
                     ) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "關閉", )
@@ -78,8 +73,8 @@ fun OrderDetailScreen(
                     items(ordersList.size){i ->
                         DetailCard(
                             title = convertDate(ordersList[i].orderDate)!! + " " +ordersList[i].orderType,
-                            description = "${ordersList[i].orderDetail.size}項商品",
-                            price = ordersList[i].orderDetail.sumOf { item-> item.total.substring(1).toDouble().toInt() }.toString(),
+                            description = "${ordersList[i].orderDetail.size}項商品 ${if (ordersList[i].orderStatus)"已完成" else "未完成" }",
+                            price = ordersList[i].orderDetail.sumOf { item-> item.total }.toString(),
                             onClick = {
                                 clickItemID = i
                                 showBottomSheet = true
@@ -89,5 +84,6 @@ fun OrderDetailScreen(
                 }
             )
         }
+
     }
 }

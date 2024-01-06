@@ -8,6 +8,8 @@ data class SendOrderModel(
     val orderList: List<CartOrderView>,
     @SerializedName("type")
     val orderType: SendOrderTypeModel,
+    @SerializedName("notify_token")
+    val notifyToken: String,
 )
 
 data class SendOrderTypeModel(

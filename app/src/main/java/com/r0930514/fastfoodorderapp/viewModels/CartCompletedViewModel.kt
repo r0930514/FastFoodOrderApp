@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.r0930514.fastfoodorderapp.data.CartRepository
 import com.r0930514.fastfoodorderapp.data.UserStateRepository
 import com.r0930514.fastfoodorderapp.dataStore
@@ -22,9 +24,11 @@ class CartCompletedViewModel(
     val orderList: MutableStateFlow<List<CartOrderView>> = _orderList
     private val _token = MutableStateFlow<String>("")
     private val token: MutableStateFlow<String> = _token
+    private var notifyToken = ""
     init {
         fetchOrderList()
         fetchToken()
+        getFirebaseToken()
     }
     private fun fetchOrderList(){
         viewModelScope.launch {
@@ -50,9 +54,17 @@ class CartCompletedViewModel(
         }
     }
     suspend fun sendOrder(orderList: List<CartOrderView>, orderType: String, tableID: String){
-        cartRepository.sendOrder(token.value, orderList, orderType, tableID)
+        cartRepository.sendOrder(token.value, orderList, orderType, tableID, notifyToken)
     }
-
+    private fun getFirebaseToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            notifyToken = task.result
+        })
+    }
     companion object{
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
