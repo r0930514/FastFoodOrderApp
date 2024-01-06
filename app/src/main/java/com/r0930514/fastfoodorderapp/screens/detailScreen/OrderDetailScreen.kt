@@ -15,15 +15,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.r0930514.fastfoodorderapp.screens.detailScreen.components.DetailBottomSheet
 import com.r0930514.fastfoodorderapp.screens.detailScreen.components.DetailCard
 import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 import com.r0930514.fastfoodorderapp.util.convertDate
@@ -37,7 +41,11 @@ fun OrderDetailScreen(
     ordersViewModel: OrdersViewModel = viewModel(factory = OrdersViewModel.Factory)
 ){
     val ordersList by ordersViewModel.orderList.collectAsState()
-    var clickItem by rememberSaveable { mutableIntStateOf(0) }
+    val sheetState = rememberModalBottomSheetState()
+    var showBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var clickItemID by rememberSaveable { mutableIntStateOf(0) }
+    val scope = rememberCoroutineScope()
+
     Scaffold (
         topBar = {
             CenterAlignedTopAppBar(
@@ -56,6 +64,13 @@ fun OrderDetailScreen(
             )
         }
     ){
+        if (showBottomSheet){
+            DetailBottomSheet(
+                orderData = ordersList[clickItemID],
+                sheetState = sheetState,
+                onDismissRequest = { showBottomSheet = false }
+            )
+        }
         Column (modifier = Modifier.padding(it)){
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -65,9 +80,14 @@ fun OrderDetailScreen(
                             title = convertDate(ordersList[i].orderDate)!! + " " +ordersList[i].orderType,
                             description = "${ordersList[i].orderDetail.size}項商品",
                             price = ordersList[i].orderDetail.sumOf { item-> item.total.substring(1).toDouble().toInt() }.toString(),
+                            onClick = {
+                                clickItemID = i
+                                showBottomSheet = true
+                            }
                         )
                     }
-                })
+                }
+            )
         }
     }
 }
