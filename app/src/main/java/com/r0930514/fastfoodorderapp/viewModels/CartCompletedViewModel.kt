@@ -55,6 +55,7 @@ class CartCompletedViewModel(
     }
     suspend fun sendOrder(orderList: List<CartOrderView>, orderType: String, tableID: String){
         cartRepository.sendOrder(token.value, orderList, orderType, tableID, notifyToken)
+        cartRepository.clearCart()
     }
     private fun getFirebaseToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->

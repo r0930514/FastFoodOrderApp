@@ -16,6 +16,7 @@ class MessageService: FirebaseMessagingService(){
         super.onNewToken(token)
         Log.e("MessageService", "onNewToken: $token")
         Log.d("TAG", "onNewToken: $token")
+        showNotification("程式初始化", "通知初始化")
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
