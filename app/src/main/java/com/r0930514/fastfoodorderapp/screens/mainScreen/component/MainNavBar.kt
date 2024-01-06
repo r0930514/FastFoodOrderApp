@@ -22,7 +22,6 @@ fun CNavBar(selectItem: Int, onSelectedItem: (Int) -> Unit) {
                     Icon(imageVector = ImageVector.Companion.vectorResource(item.icon), contentDescription = item.label)
                 },
                 label = { Text(item.label) },
-                alwaysShowLabel = false
             )
         }
 
