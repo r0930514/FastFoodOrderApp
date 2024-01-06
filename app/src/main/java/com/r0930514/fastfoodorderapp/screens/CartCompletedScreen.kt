@@ -2,6 +2,7 @@ package com.r0930514.fastfoodorderapp.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -154,7 +156,8 @@ fun CartCompletedScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ){
                     when(page){
                         1 -> {
@@ -175,13 +178,22 @@ fun CartCompletedScreen(
                         }
                         0 -> {
                             Icon(
-                                imageVector = ImageVector.Companion.vectorResource(R.drawable.fastfood),
+                                imageVector = ImageVector.Companion.vectorResource(R.drawable.notifications),
                                 contentDescription = null,
-                                modifier = Modifier.size(64.dp),
-                                tint = MaterialTheme.colorScheme.primary
+                                modifier = Modifier.size(84.dp),
+                                tint = MaterialTheme.colorScheme.secondary
                             )
                             Spacer(modifier = Modifier.size(16.dp))
-                            Text(text = "請點擊結帳按鈕，選擇付款方式")
+                            Text(
+                                text = "外帶取餐",
+                                style = MaterialTheme.typography.headlineSmall,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = "我們將於餐點完成後通知您",
+                                style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Center
+                            )
                         }
                     }
                 }
