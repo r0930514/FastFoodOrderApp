@@ -39,9 +39,9 @@ fun MemberPage(
     val coroutineScope = rememberCoroutineScope()
     val listItems = listOf(
         MemberPageListItem.Detail,
-        MemberPageListItem.ChangePassword,
-        MemberPageListItem.ChangePhone,
-        MemberPageListItem.NotificationSetting,
+        MemberPageListItem.ChangePassword
+//        MemberPageListItem.ChangePhone,
+//        MemberPageListItem.NotificationSetting,
     )
     Column {
         CommonAppBar("會員")

@@ -9,8 +9,8 @@ sealed class MemberPageListItem(
 ){
     object Detail: MemberPageListItem(R.drawable.list, "交易明細", "OrderDetail")
     object ChangePassword: MemberPageListItem(R.drawable.key, "變更密碼")
-    object ChangePhone: MemberPageListItem(R.drawable.phone, "變更電話號碼")
-    object NotificationSetting: MemberPageListItem(R.drawable.notifications, "通知設定")
+    //object ChangePhone: MemberPageListItem(R.drawable.phone, "變更電話號碼")
+    //object NotificationSetting: MemberPageListItem(R.drawable.notifications, "通知設定")
     object Logout: MemberPageListItem(R.drawable.logout, "登出")
 }
 
