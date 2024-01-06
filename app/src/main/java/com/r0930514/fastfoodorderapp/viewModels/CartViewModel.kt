@@ -74,6 +74,17 @@ class CartViewModel(private val cartRepository: CartRepository): ViewModel() {
             }
         }
     }
+
+    fun clearCart() {
+        viewModelScope.launch {
+            try{
+                cartRepository.clearCart()
+            }catch (e: Exception){
+                Log.e("CartViewModel", "clearCart: ${e.message}")
+            }
+        }
+    }
+
     companion object{
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

@@ -16,7 +16,10 @@ import com.r0930514.fastfoodorderapp.ui.theme.TopDefaultAppBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartAppBar(navHostController: NavHostController){
+fun CartAppBar(
+    navHostController: NavHostController,
+    onClick: () -> Unit = {}
+){
     CenterAlignedTopAppBar(
         title = { Text(text = "購物車") },
         colors = TopDefaultAppBarColor(),
@@ -30,7 +33,7 @@ fun CartAppBar(navHostController: NavHostController){
             }
         },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onClick) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.remove_shopping_cart),
                     contentDescription = "清空購物車"

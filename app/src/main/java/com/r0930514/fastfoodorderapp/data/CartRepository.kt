@@ -29,9 +29,9 @@ class CartRepository(private val cartDao: CartDao) {
 
     }.flowOn(Dispatchers.IO)
 
-    suspend fun sendOrder(token: String, orderList: List<CartOrderView>, orderType: String, tableID: String) {
+    suspend fun sendOrder(token: String, orderList: List<CartOrderView>, orderType: String, tableID: String, notifyToken: String){
         try {
-            val data = SendOrderModel(orderList, SendOrderTypeModel(orderType, tableID ))
+            val data = SendOrderModel(orderList, SendOrderTypeModel(orderType, tableID ), notifyToken)
             Log.e("repository", "sendOrder: ${data.toString()}")
             val response = orderApiService.sendOrder(token, data)
             if (!response.isSuccessful) throw Exception("Response is not successful")
@@ -43,6 +43,9 @@ class CartRepository(private val cartDao: CartDao) {
 
     suspend fun delete(cartEntity: CartEntity){
         cartDao.delete(cartEntity)
+    }
+    suspend fun clearCart(){
+        cartDao.clearCart()
     }
     suspend fun update(cartEntity: CartEntity){
         cartDao.update(cartEntity)

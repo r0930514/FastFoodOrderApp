@@ -29,4 +29,7 @@ interface CartDao {
     //計算總價
     @Query("SELECT SUM(product_price * product_count) as total_price FROM cart_table")
     fun getTotalPrice(): Flow<Int>
+    //清空購物車
+    @Query("DELETE FROM cart_table")
+    suspend fun clearCart()
 }

@@ -1,11 +1,16 @@
 package com.r0930514.fastfoodorderapp.screens.shoppingCartScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -27,7 +32,13 @@ fun ShoppingCart(
     val cartList by viewModel.cartList.collectAsState()
     val totalPrice by viewModel.totalPrice.collectAsState()
     Scaffold (
-        topBar = { CartAppBar(navHostController) },
+        topBar = { CartAppBar(
+            navHostController = navHostController,
+            onClick = {
+                viewModel.clearCart()
+                Toast.makeText(navHostController.context, "已清空購物車", Toast.LENGTH_SHORT).show()
+            }
+        ) },
         bottomBar = { CartBottomBar( totalPrice ){
             navHostController.navigate("OrderType")
         } }
@@ -48,7 +59,19 @@ fun ShoppingCart(
                         productID = item.productID,
                     )
                 }
-            })
+                if (cartList.isEmpty()) {
+                    item {
+                        Column (
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+                            verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+                        ){
+                            Icon(imageVector = Icons.Filled.Edit, contentDescription = null)
+                            Text(text = "購物車是空的")
+                        }
+                    }
+                } }
+            )
         }
     }
 }
