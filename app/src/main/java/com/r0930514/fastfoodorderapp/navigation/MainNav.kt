@@ -70,13 +70,14 @@ fun MainNav(){
             CartCompletedScreen(navController)
         }
         //前往付款
-        composable("Payment/{TableID}"){
-            it.arguments?.getString("TableID")
-                ?.let { tableID -> PaymentScreen(navController, tableID) }
+        composable("Payment/{OrderID}"){
+            it.arguments?.getString("OrderID")
+                ?.let { orderID -> PaymentScreen(navController, orderID) }
         }
         //付款完成
-        composable("PaymentCompleted"){
-            PaymentCompletedScreen(navController)
+        composable("PaymentCompleted/{OrderID}"){
+            it.arguments?.getString("OrderID")
+                ?.let { orderID -> PaymentCompletedScreen(navController, orderID) }
         }
     }
 }
