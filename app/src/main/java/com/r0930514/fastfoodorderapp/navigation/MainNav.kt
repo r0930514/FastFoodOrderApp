@@ -11,6 +11,7 @@ import com.r0930514.fastfoodorderapp.screens.CartCompletedScreen
 import com.r0930514.fastfoodorderapp.screens.PaymentCompletedScreen
 import com.r0930514.fastfoodorderapp.screens.PaymentScreen
 import com.r0930514.fastfoodorderapp.screens.TestScreen
+import com.r0930514.fastfoodorderapp.screens.detailScreen.AdminOrderDetailScreen
 import com.r0930514.fastfoodorderapp.screens.detailScreen.OrderDetailScreen
 import com.r0930514.fastfoodorderapp.screens.loginScreen.LoginScreen
 import com.r0930514.fastfoodorderapp.screens.mainScreen.MainScaffold
@@ -78,6 +79,11 @@ fun MainNav(){
         composable("PaymentCompleted/{OrderID}"){
             it.arguments?.getString("OrderID")
                 ?.let { orderID -> PaymentCompletedScreen(navController, orderID) }
+        }
+
+        //AdminOrderDetail
+        composable("AdminOrderDetail"){
+            AdminOrderDetailScreen(navController)
         }
     }
 }

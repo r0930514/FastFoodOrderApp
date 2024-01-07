@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +23,9 @@ import com.r0930514.fastfoodorderapp.model.OrdersModel
 fun DetailBottomSheet(
     sheetState: SheetState,
     onDismissRequest: () -> Unit,
-    orderData: OrdersModel? = null
+    orderData: OrdersModel? = null,
+    adminDoneOrder: Boolean = false,
+    doneOrder: (String) -> Unit = {}
 ) {
     ModalBottomSheet(onDismissRequest = onDismissRequest) {
         Column (
@@ -76,6 +79,19 @@ fun DetailBottomSheet(
                 ){
                     Text(text = "總計")
                     Text(text = "$" + orderData.orderDetail.sumOf { item-> item.total }.toString())
+                }
+                if (adminDoneOrder){
+                    Button(
+                        onClick = {
+                            doneOrder(orderData.orderID.toString())
+                            onDismissRequest()
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                    ){
+                        Text(text = "完成訂單")
+                    }
                 }
             }
         }

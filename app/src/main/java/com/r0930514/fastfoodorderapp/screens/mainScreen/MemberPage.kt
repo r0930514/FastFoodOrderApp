@@ -79,8 +79,18 @@ fun MemberPage(
                         Divider()
                     }
                 }
+                if (username == "0000"){
+                    item {
+                        MemberPageList(
+                            item = MemberPageListItem.AdminOrderDetail,
+                            modifier = Modifier.clickable
+                            {
+                                navHostController.navigate("AdminOrderDetail")
+                            }
+                        )
+                    }
+                }
             })
-
         }
     }
 }
